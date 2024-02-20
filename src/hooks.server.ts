@@ -1,4 +1,4 @@
-import type { Handle } from "@sveltejs/kit";
+import { type Handle, redirect } from "@sveltejs/kit";
 import jwt from "jsonwebtoken";
 import { db } from "$lib/db/db.server";
 import { eq } from "drizzle-orm";
@@ -30,5 +30,15 @@ export const handle: Handle = async ({ event, resolve }) => {
     console.log(error);
   }
 
+  if (
+    event.locals.user &&
+    (event.url.pathname === "/login" || event.url.pathname === "/register")
+  ) {
+    return redirect(303, "/");
+  }
+
+  if (!event.locals.user && event.url.pathname === "/profile") {
+    return redirect(303, "/");
+  }
   return resolve(event);
 };

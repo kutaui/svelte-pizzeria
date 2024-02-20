@@ -9,7 +9,7 @@ import { JWT_SECRET } from "$env/static/private";
 import { dev } from "$app/environment";
 
 export const actions = {
-  register: async ({ request, cookies }) => {
+  login: async ({ request, cookies }) => {
     const data = await request.formData();
     const email = data.get("email") as string;
     const password = data.get("password") as string;
@@ -26,18 +26,17 @@ export const actions = {
       where: eq(user.email, email),
     });
 
-    if (result) {
-      return fail(400, { error: "Email already in use" });
+    if (!result) {
+      return fail(400, { error: "Invalid email or password" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const match = await bcrypt.compare(password, result.password);
 
-    const newUser = await db
-      .insert(user)
-      .values({ email, password: hashedPassword })
-      .returning({ insertedId: user.id });
+    if (!match) {
+      return fail(400, { error: "Invalid email or password" });
+    }
 
-    const token = jwt.sign({ id: newUser[0].insertedId }, JWT_SECRET);
+    const token = jwt.sign({ id: result.id }, JWT_SECRET);
 
     cookies.set("authToken", token, {
       path: "/",
