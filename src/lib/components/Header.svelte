@@ -1,5 +1,12 @@
 <script lang="ts">
-  let { user } = $props();
+  import type { UserWithoutPassword } from "$lib/types/User";
+  import type { Profile } from "$lib/types/Profile";
+
+  interface Props {
+    user: UserWithoutPassword | undefined;
+  }
+
+  let { user } = $props<Props>();
   console.log(user);
 </script>
 

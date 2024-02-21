@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { ActionData } from "./$types";
   import { enhance } from "$app/forms";
-  import type { Load } from "@sveltejs/kit";
-  import type { User, UserWithoutPassword } from "$lib/types/User";
+  import type { UserWithoutPassword } from "$lib/types/User";
 
   let { email, password } = $state({ email: "", password: "" });
 

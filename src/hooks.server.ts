@@ -24,20 +24,20 @@ export const handle: Handle = async ({ event, resolve }) => {
       console.log("User not found");
       throw new Error("User not found");
     }
+
     const { password, ...userMinusPassword } = result;
     event.locals.user = userMinusPassword;
   } catch (error) {
     console.log(error);
   }
 
-  if (
-    event.locals.user &&
-    (event.url.pathname === "/login" || event.url.pathname === "/register")
-  ) {
-    return redirect(303, "/");
+  if (event.url.pathname === "/login" || event.url.pathname === "/register") {
+    /*   if (event.locals.user) {
+         return redirect(303, "/");
+       }*/
   }
 
-  if (!event.locals.user && event.url.pathname === "/profile") {
+  if (event.locals.user === undefined && event.url.pathname === "/profile") {
     return redirect(303, "/");
   }
   return resolve(event);

@@ -3,7 +3,11 @@
   import Header from "$lib/components/Header.svelte";
   import type { UserWithoutPassword } from "$lib/types/User";
 
-  let { data }: { data: { user: UserWithoutPassword | undefined } } = $props();
+  type Props = {
+    data: { user: UserWithoutPassword | undefined };
+  };
+
+  let { data } = $props<Props>();
 </script>
 
 <Header user={data.user} />
