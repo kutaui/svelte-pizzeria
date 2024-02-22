@@ -1,11 +1,16 @@
 <script lang="ts">
+  import { browser } from "$app/environment";
+  import { onMount } from "svelte";
+
   interface Props {
-    isAdmin: boolean;
+    isAdmin: boolean | undefined;
   }
 
-  const path = window.location.pathname;
+  let path = $state();
+  onMount(() => {
+    path = window.location.pathname;
+  });
   let { isAdmin } = $props<Props>();
-  console.log(path);
 </script>
 
 <div class="tabs mx-auto flex flex-wrap justify-center gap-2">

@@ -1,14 +1,13 @@
 <script lang="ts">
   import EditableImage from "$lib/components/EditableImage.svelte";
   import type { UserWithoutPassword } from "$lib/types/User";
-  import type { Profile } from "$lib/types/Profile";
+  import AddressInputs from "$lib/components/AddressInputs.svelte";
 
   interface Props {
     user: UserWithoutPassword | undefined;
-    profile: Profile;
   }
 
-  let { user, profile } = $props<Props>();
+  let { user } = $props<Props>();
   let {
     phone,
     streetAddress,
@@ -17,14 +16,14 @@
     country,
     image,
     admin,
-  }: Profile = $state({
-    phone: profile?.phone || "",
-    streetAddress: profile?.streetAddress || "",
-    postalCode: profile?.postalCode || "",
-    city: profile?.city || "",
-    country: profile?.country || "",
-    image: profile?.image || "",
-    admin: profile?.admin || false,
+  }: UserWithoutPassword = $state({
+    phone: user?.phone || "",
+    streetAddress: user?.streetAddress || "",
+    postalCode: user?.postalCode || "",
+    city: user?.city || "",
+    country: user?.country || "",
+    image: user?.image || "",
+    admin: user?.admin || false,
   });
 </script>
 
@@ -41,9 +40,8 @@
     <input type="email" disabled={true} placeholder={"email"} />
     <AddressInputs
       addressProps={{ phone, streetAddress, postalCode, city, country }}
-      setAddressProp={handleAddressChange}
     />
-    {#if profile.admin}
+    {#if user?.admin}
       <div>
         <label class="mb-2 inline-flex items-center gap-2 p-2" for="adminCb">
           <input id="adminCb" type="checkbox" class="" value={"1"} />

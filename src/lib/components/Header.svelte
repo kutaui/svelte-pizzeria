@@ -7,7 +7,6 @@
   }
 
   let { user } = $props<Props>();
-  console.log(user);
 </script>
 
 <header class="flex items-center justify-between">

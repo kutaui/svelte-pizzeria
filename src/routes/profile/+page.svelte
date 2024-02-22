@@ -5,17 +5,21 @@
   import type { Profile } from "$lib/types/Profile";
 
   interface Props {
-    data: { user: UserWithoutPassword | undefined };
-    profile: Profile;
+    data: {
+      user: UserWithoutPassword | undefined;
+      result: UserWithoutPassword;
+    };
   }
 
-  let { data, profile } = $props<Props>();
+  let { data } = $props<Props>();
   let user = data.user;
+  let profile = data.result;
+  console.log(data.result);
 </script>
 
 <section class="mt-8">
   <UserTabs isAdmin={profile.admin} />
   <div class="mx-auto mt-8 max-w-2xl">
-    <UserForm {user} {profile} />
+    <UserForm {user} />
   </div>
 </section>

@@ -22,6 +22,27 @@
       "when": 1708262898592,
       "tag": "0002_wet_harry_osborn",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1708623460729,
+      "tag": "0003_bouncy_changeling",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1708623735073,
+      "tag": "0004_gigantic_peter_quill",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1708624734732,
+      "tag": "0005_hard_black_bird",
+      "breakpoints": true
     }
   ]
 }
