@@ -1,6 +1,6 @@
 <script lang="ts">
   interface Props {
-    link: string | undefined;
+    link: string | null;
   }
 
   let { link } = $props<Props>();

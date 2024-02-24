@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { Toast } from "flowbite-svelte";
 
   import UserTabs from "$lib/components/UserTabs.svelte";
   import UserForm from "$lib/components/UserForm.svelte";
@@ -23,9 +23,4 @@
   <div class="mx-auto mt-8 max-w-2xl">
     <UserForm user={profile} />
   </div>
-  {#if form?.success}
-    <div class="mt-4 text-center text-green-500">
-      <p>work</p>
-    </div>
-  {/if}
 </section>

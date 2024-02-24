@@ -1,11 +1,11 @@
 <script lang="ts">
   interface Props {
     addressProps: {
-      phone: string | undefined;
-      streetAddress: string | undefined;
-      postalCode: string | undefined;
-      city: string | undefined;
-      country: string | undefined;
+      phone: string | null;
+      streetAddress: string | null;
+      postalCode: string | null;
+      city: string | null;
+      country: string | null;
     };
   }
 

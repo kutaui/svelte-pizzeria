@@ -50,6 +50,7 @@
   "type": "module",
   "dependencies": {
     "drizzle-orm": "^0.29.3",
+    "flowbite-svelte": "^0.44.24",
     "jsonwebtoken": "^9.0.2",
     "postgres": "^3.4.3"
   }

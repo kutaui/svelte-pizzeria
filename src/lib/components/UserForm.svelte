@@ -1,8 +1,9 @@
 <script lang="ts">
   import EditableImage from "$lib/components/EditableImage.svelte";
-  import type { UserWithoutPassword } from "$lib/types/User";
+  import type { Profile, UserWithoutPassword } from "$lib/types/User";
   import AddressInputs from "$lib/components/AddressInputs.svelte";
   import { enhance } from "$app/forms";
+  import { page } from "$app/stores";
 
   interface Props {
     user: UserWithoutPassword;
@@ -18,7 +19,7 @@
     country,
     image,
     admin,
-  }: UserWithoutPassword = $state({
+  }: Profile = $state({
     name: user?.name || "",
     phone: user?.phone || "",
     streetAddress: user?.streetAddress || "",
@@ -30,13 +31,28 @@
   });
 </script>
 
+{#if $page.form?.success}
+  <div class="mt-4 text-center text-green-500">
+    <p>work</p>
+  </div>
+{/if}
 <div class="gap-4 md:flex">
   <div>
     <div class="relative max-w-[120px] rounded-lg p-2">
       <EditableImage link={image} />
     </div>
   </div>
-  <form class="grow" method="POST" action="/profile?/profile">
+  <form
+    class="grow"
+    method="POST"
+    action="/profile?/profile"
+    use:enhance={() => {
+      return async ({ update }) => {
+        update({ reset: false });
+      };
+    }}
+  >
+    >
     <label for="name"> First and last name </label>
     <input
       name="name"
