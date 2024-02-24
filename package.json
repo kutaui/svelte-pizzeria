@@ -50,6 +50,7 @@
   "type": "module",
   "dependencies": {
     "drizzle-orm": "^0.29.3",
+    "jsonwebtoken": "^9.0.2",
     "postgres": "^3.4.3"
   }
 }

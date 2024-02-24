@@ -1,14 +1,15 @@
 export interface User {
   id?: number;
-  email?: string;
+  name?: string | null;
+  email?: string | null;
   password?: string;
-  streetAddress?: string;
-  postalCode?: string;
-  city?: string;
-  country?: string;
-  phone?: string;
+  streetAddress?: string | null;
+  postalCode?: string | null;
+  city?: string | null;
+  country?: string | null;
+  phone?: string | null;
   admin?: boolean;
-  image?: string;
+  image?: string | null;
 }
 
 export interface UserWithoutPassword extends Omit<User, "password"> {}

@@ -10,7 +10,6 @@
     data,
   }: { form: ActionData; data: { user: UserWithoutPassword | undefined } } =
     $props();
-  console.log(data.user);
 </script>
 
 <section class="mt-8">

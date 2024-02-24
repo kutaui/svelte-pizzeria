@@ -19,12 +19,10 @@
     <a href={"/categories"} class={path === "/categories" ? "active" : ""}>
       Categories
     </a>
-    <a href={"/menu-items"} class={path.includes("menu-items") ? "active" : ""}>
+    <a href={"/menu-items"} class={path === "/menu-items" ? "active" : ""}>
       Menu Items
     </a>
-    <a class={path.includes("/users") ? "active" : ""} href={"/users"}>
-      Users
-    </a>
+    <a class={path === "/users" ? "active" : ""} href={"/users"}> Users </a>
   {/if}
   <a class={path === "/orders" ? "active" : ""} href={"/orders"}> Orders </a>
 </div>
