@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "$lib/db/db.server";
-import { user } from "$lib/db/schema";
+import { users } from "$lib/db/schema";
 import type { Actions } from "@sveltejs/kit";
 import { fail, redirect } from "@sveltejs/kit";
 import bcrypt from "bcryptjs";
@@ -22,8 +22,8 @@ export const actions = {
       return fail(400, { error: "Password field is required" });
     }
 
-    const result = await db.query.user.findFirst({
-      where: eq(user.email, email),
+    const result = await db.query.users.findFirst({
+      where: eq(users.email, email),
     });
 
     if (result) {
@@ -33,9 +33,9 @@ export const actions = {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await db
-      .insert(user)
+      .insert(users)
       .values({ email, password: hashedPassword })
-      .returning({ insertedId: user.id });
+      .returning({ insertedId: users.id });
 
     const token = jwt.sign({ id: newUser[0].insertedId }, JWT_SECRET);
 

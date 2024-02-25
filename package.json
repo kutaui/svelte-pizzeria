@@ -49,6 +49,7 @@
   },
   "type": "module",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "drizzle-orm": "^0.29.3",
     "flowbite-svelte": "^0.44.24",
     "jsonwebtoken": "^9.0.2",

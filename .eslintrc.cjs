@@ -21,5 +21,6 @@ module.exports = {
   }],
   rules: {
     "@typescript-eslint/no-unused-vars": ["warn", { "varsIgnorePattern": "password" }],
+    "svelte/valid-compile": "warn",
   },
 };

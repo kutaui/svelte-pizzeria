@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "$lib/db/db.server";
-import { user } from "$lib/db/schema";
+import { users } from "$lib/db/schema";
 import type { Actions } from "@sveltejs/kit";
 import { fail, redirect } from "@sveltejs/kit";
 import bcrypt from "bcryptjs";
@@ -22,8 +22,8 @@ export const actions = {
       return fail(400, { error: "Password field is required" });
     }
 
-    const result = await db.query.user.findFirst({
-      where: eq(user.email, email),
+    const result = await db.query.users.findFirst({
+      where: eq(users.email, email),
     });
 
     if (!result) {

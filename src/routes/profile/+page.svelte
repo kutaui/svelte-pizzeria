@@ -19,7 +19,7 @@
 </script>
 
 <section class="mt-8">
-  <UserTabs isAdmin={profile.admin} />
+  <UserTabs isAdmin={true} />
   <div class="mx-auto mt-8 max-w-2xl">
     <UserForm user={profile} />
   </div>

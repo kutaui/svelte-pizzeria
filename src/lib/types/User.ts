@@ -10,6 +10,7 @@ export interface User {
   phone: string | null;
   admin: boolean;
   image: string | null;
+  createdAt: Date | null;
 }
 
 export interface UserWithoutPassword extends Omit<User, "password"> {}

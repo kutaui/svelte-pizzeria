@@ -1,7 +1,7 @@
 import type { PageServerLoad } from "./$types";
 import { db } from "$lib/db/db.server";
 import { eq, sql } from "drizzle-orm";
-import { user } from "$lib/db/schema";
+import { users } from "$lib/db/schema";
 import { type Actions, fail } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -9,8 +9,8 @@ export const load: PageServerLoad = async ({ locals }) => {
   if (!existingUser) throw new Error("User not found");
   const res = await db
     .select()
-    .from(user)
-    .where(eq(user.id, existingUser.id ?? 0));
+    .from(users)
+    .where(eq(users.id, existingUser.id ?? 0));
   const { password, ...result } = res[0];
   return {
     result,
@@ -31,19 +31,15 @@ export const actions = {
     const country = data.get("country") as string;
     const telephone = data.get("telephone") as string;
 
-    const profile = await db.query.user.findFirst({
-      where: eq(user.email, existingUser.email ?? ""),
-    });
-
     await db.execute(sql`
-        UPDATE "user"
+        UPDATE "users"
         SET name           = NULLIF(${name}, ''),
             street_address = NULLIF(${address}, ''),
             postal_code    = NULLIF(${postal}, ''),
             city           = NULLIF(${city}, ''),
             country        = NULLIF(${country}, ''),
             phone          = NULLIF(${telephone}, '')
-        WHERE "user".email = ${existingUser.email}
+        WHERE "users".email = ${existingUser.email}
     `);
 
     return { success: true };
