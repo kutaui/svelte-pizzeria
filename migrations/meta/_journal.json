@@ -85,6 +85,13 @@
       "when": 1708849591412,
       "tag": "0011_massive_living_lightning",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1708855521881,
+      "tag": "0012_chunky_micromax",
+      "breakpoints": true
     }
   ]
 }

@@ -7,7 +7,8 @@ export const load: PageServerLoad = async () => {
   return {
     categories: await db.execute(
       sql`SELECT *
-          FROM categories`
+          FROM categories
+          ORDER BY created_at ASC`
     ),
   };
 };
@@ -38,6 +39,7 @@ export const actions = {
                                                VALUES (${categoryName})`);
 
       return { message: "Category added", success: true };
+      // @ts-expect-error I have no idea
     } else if (category && categoryId !== null) {
       console.log("not here");
 

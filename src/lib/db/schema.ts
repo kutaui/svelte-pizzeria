@@ -28,12 +28,13 @@ export const categories = pgTable("categories", {
   id: serial("id").primaryKey(),
   name: text("name").notNull().unique(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
 export const menuItems = pgTable("menu_items", {
   id: serial("id").primaryKey(),
   image: text("image"),
-  name: text("name"),
+  name: text("name").notNull(),
   description: text("description"),
   categoryId: serial("category_id").references(() => categories.id),
   basePrice: numeric("base_price"),
