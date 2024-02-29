@@ -83,10 +83,7 @@
             >
               Edit
             </button>
-            <DeleteButton
-              label="Delete"
-              onDelete={() => handleDeleteClick(c.id)}
-            />
+            <DeleteButton label="Delete" categoryID={c.id} />
           </div>
         </div>
       {/each}

@@ -21,6 +21,9 @@ export const actions = {
     const categoryName = data.get("categoryName") as string;
     const update = data.get("update");
     const categoryIdValue = data.get("categoryId");
+    if (!categoryName.trim()) {
+      return { message: "Category name is required", success: false };
+    }
     let categoryId: number | null;
     if (typeof categoryIdValue === "string") {
       categoryId =
@@ -50,5 +53,24 @@ export const actions = {
     } else {
       console.log("Invalid data for update");
     }
+  },
+  deleteCategory: async ({ request }) => {
+    const data = await request.formData();
+    const categoryID = data.get("categoryID");
+
+    const category = await db.execute(
+      sql`SELECT *
+          FROM categories
+          WHERE id = ${categoryID}`
+    );
+    if (category.length <= 0) {
+      return { message: "Category not found", success: false };
+    }
+
+    const deletedCategory = await db.execute(sql`DELETE
+                                                 FROM categories
+                                                 WHERE id = ${categoryID}`);
+
+    return { message: "Category deleted", success: true };
   },
 } satisfies Actions;

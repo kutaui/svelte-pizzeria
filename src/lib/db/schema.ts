@@ -28,7 +28,6 @@ export const categories = pgTable("categories", {
   id: serial("id").primaryKey(),
   name: text("name").notNull().unique(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
 export const menuItems = pgTable("menu_items", {
