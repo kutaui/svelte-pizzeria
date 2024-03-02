@@ -4,7 +4,8 @@
   import type { Category } from "$lib/types/Category";
   import type { ActionData } from "./$types";
 
-  async function handleDeleteClick(id) {}
+  async function handleDeleteClick(id) {
+  }
 
   interface Props {
     data: {
@@ -83,7 +84,7 @@
             >
               Edit
             </button>
-            <DeleteButton label="Delete" categoryID={c.id} />
+            <DeleteButton label="Delete" deleteID={c.id} category />
           </div>
         </div>
       {/each}

@@ -29,6 +29,8 @@
     image: user?.image || "",
     admin: user?.admin || false,
   });
+  $effect(() => console.log($page?.form));
+
 </script>
 
 {#if $page.form?.success}

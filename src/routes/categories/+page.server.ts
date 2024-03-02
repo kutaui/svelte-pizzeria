@@ -8,7 +8,7 @@ export const load: PageServerLoad = async () => {
     categories: await db.execute(
       sql`SELECT *
           FROM categories
-          ORDER BY created_at ASC`
+          ORDER BY created_at ASC`,
     ),
   };
 };
@@ -16,7 +16,6 @@ export const load: PageServerLoad = async () => {
 export const actions = {
   categories: async ({ request, cookies }) => {
     const data = await request.formData();
-    console.log(data);
 
     const categoryName = data.get("categoryName") as string;
     const update = data.get("update");
@@ -32,16 +31,16 @@ export const actions = {
 
     const categories = await db.execute(
       sql`SELECT *
-          FROM categories`
+          FROM categories`,
     );
     const category = categories.find((category) => category.id === categoryId);
 
     if (update == "false") {
-      console.log("we here");
       const newCategory = await db.execute(sql`INSERT INTO categories (name)
                                                VALUES (${categoryName})`);
 
       return { message: "Category added", success: true };
+
       // @ts-expect-error I have no idea
     } else if (category && categoryId !== null) {
       console.log("not here");
@@ -52,16 +51,18 @@ export const actions = {
       return { message: "Category updated", success: true };
     } else {
       console.log("Invalid data for update");
+      return { message: "Invalid data for update", success: false };
+
     }
   },
   deleteCategory: async ({ request }) => {
     const data = await request.formData();
-    const categoryID = data.get("categoryID");
-
+    const categoryID = data.get("deleteID");
+    console.log(data);
     const category = await db.execute(
       sql`SELECT *
           FROM categories
-          WHERE id = ${categoryID}`
+          WHERE id = ${categoryID}`,
     );
     if (category.length <= 0) {
       return { message: "Category not found", success: false };

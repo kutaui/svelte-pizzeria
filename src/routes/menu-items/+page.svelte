@@ -17,7 +17,7 @@
   <div class="mt-8">
     <a class="button flex" href={"/menu-items/new"}>
       <span>Crete new menu item</span>
-      <img src="arrow-right-black.svg" alt="" class="h-6 w-6" />
+      <img src="/arrow-right-black.svg" alt="" class="h-6 w-6" />
     </a>
   </div>
   <div>

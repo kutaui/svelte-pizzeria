@@ -3,8 +3,8 @@ export interface MenuItem {
   image: string;
   name: string;
   description: string;
-  categoryId: number;
-  basePrice: string;
+  category_id: number;
+  base_price: number;
   sizes: MenuItemPrices[];
   extraIngredientPrices: MenuItemPrices[];
   createdAt?: Date;
@@ -12,5 +12,5 @@ export interface MenuItem {
 
 export interface MenuItemPrices {
   name: string;
-  price: string;
+  price: number;
 }

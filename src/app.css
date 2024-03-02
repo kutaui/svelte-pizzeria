@@ -4,13 +4,14 @@
 
 section.hero {
     @apply block md:grid;
-    grid-template-columns: .6fr .6fr;
+    grid-template-columns: .4fr .6fr;
 }
 
 select,
 input[type="email"],
 input[type="password"],
 input[type="tel"],
+input[type="number"],
 input[type="text"] {
     @apply block w-full mb-2 rounded-xl;
     @apply border p-2 border-gray-300 bg-gray-100;
@@ -19,6 +20,7 @@ input[type="text"] {
 input[type="email"]:disabled,
 input[type="password"]:disabled,
 input[type="tel"]:disabled,
+input[type="number"]:disabled,
 input[type="text"]:disabled {
     @apply bg-gray-300 border-0 cursor-not-allowed text-gray-500;
 }
@@ -33,8 +35,9 @@ label + input {
 
 button, .button {
     @apply flex w-full justify-center gap-2 text-gray-700 font-semibold;
-    @apply border border-gray-300 rounded-xl px-6 py-2
+    @apply border border-gray-300 rounded-xl px-6 py-2;
 }
+
 
 button[type="submit"], .submit, button.primary {
     @apply border-primary bg-primary text-white;
@@ -52,3 +55,6 @@ div.tabs > *.active {
     @apply bg-primary text-white;
 }
 
+.flying-button-parent button {
+    @apply border-primary bg-primary text-white rounded-full;
+}

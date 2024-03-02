@@ -13,6 +13,8 @@ export interface User {
   createdAt: Date | null;
 }
 
-export interface UserWithoutPassword extends Omit<User, "password"> {}
+export interface UserWithoutPassword extends Omit<User, "password"> {
+}
 
-export interface Profile extends Omit<UserWithoutPassword, "id" | "email"> {}
+export interface Profile extends Omit<UserWithoutPassword, "id" | "email" | "createdAt"> {
+}
