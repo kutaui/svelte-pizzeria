@@ -44,3 +44,18 @@ export const menuItems = pgTable("menu_items", {
   }>(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
+
+export const orders = pgTable("orders", {
+  id: serial("id").primaryKey(),
+  userEmail: text("user_email"),
+  phone: text("phone"),
+  streetAddress: text("street_address"),
+  postalCode: text("postal_code"),
+  city: text("city"),
+  country: text("country"),
+  cartProducts: jsonb("cart_products"),
+  paid: boolean("paid").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+

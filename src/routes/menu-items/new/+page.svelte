@@ -11,7 +11,7 @@
     form: ActionData;
   }
 
-  let { data, form } = $props<Props>();
+  let { data } = $props<Props>();
   const { categories } = data;
 </script>
 
@@ -23,5 +23,5 @@
       <span>Show all menu items</span>
     </a>
   </div>
-  <MenuItemForm menuItem={null} categories={categories} />
+  <MenuItemForm menuItem={null} categories={categories} editItem={false} />
 </section>

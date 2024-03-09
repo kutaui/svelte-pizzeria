@@ -21,7 +21,7 @@ export const actions = {
   profile: async ({ request, locals }) => {
     const { user: existingUser } = locals;
     if (!existingUser) {
-      return fail(400, { error: "Email field is required" });
+      return fail(400, { error: "User not found." });
     }
     const data = await request.formData();
     const name = data.get("name") as string;
@@ -44,5 +44,6 @@ export const actions = {
 
     return { success: true };
   },
-  image: async ({ request }) => {},
+  image: async ({ request }) => {
+  },
 } satisfies Actions;

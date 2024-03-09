@@ -9,7 +9,10 @@ export const handle: Handle = async ({ event, resolve }) => {
   const authToken = event.cookies.get("authToken") || "";
 
   try {
-    if (!authToken) event.locals.user = undefined;
+    if (!authToken) {
+      event.locals.user = undefined;
+      return redirect(303, "/login");
+    }
     const claims = jwt.verify(authToken, JWT_SECRET);
     if (typeof claims === "string") {
       throw new Error("Something went wrong");
@@ -17,6 +20,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     if (!claims) {
       event.cookies.delete("authToken", { path: "/" });
       event.locals.user = undefined;
+      return redirect(303, "/login");
+
     }
 
     const result = await db.query.users.findFirst({
@@ -41,7 +46,8 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   if (event.locals.user === undefined && event.url.pathname === "/profile") {
-    return redirect(303, "/");
+
+    return redirect(303, "/login");
   }
   return resolve(event);
 };

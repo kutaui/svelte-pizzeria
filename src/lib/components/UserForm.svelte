@@ -7,9 +7,10 @@
 
   interface Props {
     user: UserWithoutPassword;
+    edit?: boolean;
   }
 
-  let { user } = $props<Props>();
+  let { user, edit } = $props<Props>();
   let {
     name,
     phone,
@@ -18,7 +19,6 @@
     city,
     country,
     image,
-    admin,
   }: Profile = $state({
     name: user?.name || "",
     phone: user?.phone || "",
@@ -27,9 +27,10 @@
     city: user?.city || "",
     country: user?.country || "",
     image: user?.image || "",
-    admin: user?.admin || false,
   });
   $effect(() => console.log($page?.form));
+
+  const action = edit ? `/users/${user?.id}?/edit` : "/profile?/profile";
 
 </script>
 
@@ -47,7 +48,7 @@
   <form
     class="grow"
     method="POST"
-    action="/profile?/profile"
+    action={action}
     use:enhance={() => {
       return async ({ update }) => {
         update({ reset: false });

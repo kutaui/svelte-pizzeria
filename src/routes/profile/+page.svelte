@@ -6,16 +6,17 @@
   interface Props {
     data: {
       result: UserWithoutPassword;
+      user: UserWithoutPassword;
     };
   }
 
   let { data } = $props<Props>();
   let profile = data.result;
-
+  let { user } = data;
 </script>
 
 <section class="mt-8">
-  <UserTabs isAdmin={true} />
+  <UserTabs isAdmin={user.admin} />
   <div class="mx-auto mt-8 max-w-2xl">
     <UserForm user={profile} />
   </div>

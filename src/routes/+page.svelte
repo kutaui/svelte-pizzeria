@@ -2,8 +2,8 @@
   import Hero from "$lib/components/Hero.svelte";
   import HomeMenu from "$lib/components/HomeMenu.svelte";
   import SectionHeaders from "$lib/components/SectionHeaders.svelte";
+  import { Toaster } from "svelte-french-toast";
 
-  let { data } = $props();
 </script>
 
 <Hero />

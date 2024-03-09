@@ -1,6 +1,5 @@
 import type { PageServerLoad } from "./$types";
 import { db } from "$lib/db/db.server";
-import type { MenuItem, MenuItemPrices } from "$lib/types/MenuItem";
 import { sql } from "drizzle-orm";
 import { type Actions, redirect } from "@sveltejs/kit";
 import { parseMenuItemPrices } from "$lib/helpers";

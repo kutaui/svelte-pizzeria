@@ -13,7 +13,7 @@
 </script>
 
 <section class="mt-8">
-  <h1 class="mb-4 text-center text-4xl text-primary">Register</h1>
+  <h1 class="mb-4 text-center text-4xl text-primary">Login</h1>
   <form
     class="mx-auto block max-w-xs"
     method="POST"
@@ -28,8 +28,8 @@
       bind:value={password}
     />
     {#if form?.error}<p class="text-red-600">
-        {form.error}
-      </p>{/if}
+      {form.error}
+    </p>{/if}
     <button type="submit">Login</button>
     <div class="my-4 border-t pt-4 text-center text-gray-500">
       Don't have an account?
