@@ -1,10 +1,10 @@
 import { db } from "$lib/db/db.server";
 import { users } from "$lib/db/schema";
 import type { PageServerLoad } from "./$types";
+import { sql } from "drizzle-orm";
 
 export const load = (async () => {
-  const result = await db.select().from(users);
   return {
-    result,
+    menuItems: await db.execute(sql` SELECT * FROM menu_items`),
   };
 }) satisfies PageServerLoad;

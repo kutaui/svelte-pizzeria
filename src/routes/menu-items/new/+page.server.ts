@@ -33,7 +33,6 @@ export const actions = {
       VALUES (${name}, ${description}, ${categoryID}, ${basePrice}, ${sizesJSON}, ${extraIngredientPricesJSON})
     `);
 
-    console.log(menuItem);
 
     return redirect(300, `/menu-items`);
   },

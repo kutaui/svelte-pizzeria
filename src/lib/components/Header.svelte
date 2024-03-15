@@ -13,9 +13,9 @@
   <nav class="flex items-center gap-8 font-semibold text-gray-600">
     <a href="/" class="text-2xl font-black text-primary">PIZZERIA</a>
     <a href="/">Home</a>
-    <a href="/">Menu</a>
-    <a href="/">About</a>
-    <a href="/">Contact</a>
+    <a href="/menu">Menu</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
   </nav>
   <nav class="flex items-center gap-4 font-semibold text-gray-600" data-sveltekit-reload>
     {#if !user}

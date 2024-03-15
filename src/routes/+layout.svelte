@@ -3,14 +3,13 @@
   import Header from "$lib/components/Header.svelte";
   import type { UserWithoutPassword } from "$lib/types/User";
   import { Toaster } from "svelte-french-toast";
-  import { cartStore } from "$lib/stores/CartStore";
 
   type Props = {
     data: { user: UserWithoutPassword | undefined };
   };
 
   let { data } = $props<Props>();
-  
+
 </script>
 
 <Toaster />

@@ -11,7 +11,6 @@
 
   const { data } = $props<Props>();
   const { user } = data;
-  console.log(user);
 </script>
 
 <section class="mt-8 mx-auto max-w-2xl">

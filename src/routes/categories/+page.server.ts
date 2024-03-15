@@ -58,7 +58,6 @@ export const actions = {
   deleteCategory: async ({ request }) => {
     const data = await request.formData();
     const categoryID = data.get("deleteID");
-    console.log(data);
     const category = await db.execute(
       sql`SELECT *
           FROM categories

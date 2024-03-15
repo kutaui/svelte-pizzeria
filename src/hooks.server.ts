@@ -36,7 +36,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     const { password, ...userMinusPassword } = result;
     event.locals.user = userMinusPassword;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 
   if (event.url.pathname === "/login" || event.url.pathname === "/register") {

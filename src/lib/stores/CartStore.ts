@@ -1,20 +1,44 @@
 import type { CartItem } from "$lib/types/MenuItem";
 
 export function createCartStore() {
-  const storageItems = typeof window !== "undefined" ? localStorage.getItem("cart") ?? "[]" : "[]";
+  const ls = typeof window !== "undefined" ? window.localStorage : null;
 
+  const storageItems = ls ? localStorage.getItem("cart") ?? "[]" : "[]";
 
-  const items: CartItem[] = JSON.parse(storageItems);
+  let cartItems: CartItem[] = JSON.parse(storageItems);
+
+  if (!Array.isArray(cartItems)) {
+    cartItems = []; // Ensure cartItems is always an array
+  }
+
+  function saveCartProductsToLocalStorage(cartProducts: CartItem[]) {
+    if (ls) {
+      ls.setItem("cart", JSON.stringify(cartProducts));
+    }
+  }
+
   return {
-    get items() {
-      return items;
+    get cartItems() {
+      return cartItems;
     },
-    addItem: (item: CartItem) => {
-      items.push(item);
-      if (typeof window !== "undefined") localStorage.setItem("cart", JSON.stringify(items));
+    addItem: (item: CartItem, size = null, extras = []) => {
+      const cartProduct = { ...item, size, extras };
+
+      cartItems.push(cartProduct);
+      saveCartProductsToLocalStorage(cartItems);
+    },
+    removeItem: (itemId: number) => {
+      const index = cartItems.findIndex((item) => item.id === itemId);
+      if (index !== -1) {
+        cartItems.splice(index, 1);
+        saveCartProductsToLocalStorage(cartItems);
+      }
+    },
+    clearCart: () => {
+      cartItems.splice(0, cartItems.length);
+      saveCartProductsToLocalStorage(cartItems);
     },
   };
 }
-
 
 export const cartStore = createCartStore();

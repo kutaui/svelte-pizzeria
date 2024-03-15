@@ -28,7 +28,6 @@
     country: user?.country || "",
     image: user?.image || "",
   });
-  $effect(() => console.log($page?.form));
 
   const action = edit ? `/users/${user?.id}?/edit` : "/profile?/profile";
 

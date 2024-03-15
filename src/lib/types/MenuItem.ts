@@ -6,7 +6,7 @@ export interface MenuItem {
   category_id: number;
   base_price: number;
   sizes: MenuItemPrices[];
-  extraIngredientPrices: MenuItemPrices[];
+  extra_ingredient_prices: MenuItemPrices[];
   createdAt?: Date;
 }
 

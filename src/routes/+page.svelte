@@ -1,13 +1,21 @@
-<script>
+<script lang="ts">
   import Hero from "$lib/components/Hero.svelte";
   import HomeMenu from "$lib/components/HomeMenu.svelte";
   import SectionHeaders from "$lib/components/SectionHeaders.svelte";
-  import { Toaster } from "svelte-french-toast";
+  import type { MenuItem } from "$lib/types/MenuItem";
 
+  interface Props {
+    data: {
+      menuItems: MenuItem[]
+    };
+  }
+
+  const { data } = $props<Props>();
+  const { menuItems } = data;
 </script>
 
 <Hero />
-<HomeMenu />
+<HomeMenu {menuItems} />
 <section class="my-16 text-center" id="about">
   <SectionHeaders subHeader={"Our story"} mainHeader={"About us"} />
   <div class="mx-auto mt-4 flex max-w-md flex-col gap-4 text-gray-500">
