@@ -32,24 +32,19 @@
     image: menuItem?.image || "",
   });
 
-  let sizesJSON = $state(JSON.stringify(sizes));
-  let extraIngredientPricesJSON = $state(JSON.stringify(extraIngredientPrices));
+  let sizesJSON = $derived(JSON.stringify(sizes));
+  let extraIngredientPricesJSON = $derived(JSON.stringify(extraIngredientPrices));
 
 
   function updateSizes(newSizes: MenuItemPrices[]) {
     sizes = newSizes;
-    sizesJSON = JSON.stringify(newSizes);
   }
 
   function updateExtraIngredientPrices(newExtraIngredientPrices: MenuItemPrices[]) {
     extraIngredientPrices = newExtraIngredientPrices;
-    extraIngredientPricesJSON = JSON.stringify(newExtraIngredientPrices);
   }
 
-  $effect(() => {
-    sizesJSON = JSON.stringify(sizes);
-    extraIngredientPricesJSON = JSON.stringify(extraIngredientPrices);
-  });
+
 </script>
 
 <form class="mx-auto mt-8 max-w-2xl" method="POST" action={action} use:enhance={() => {

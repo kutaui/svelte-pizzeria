@@ -10,6 +10,9 @@ export interface MenuItem {
   createdAt?: Date;
 }
 
+export interface CartItem extends Omit<MenuItem, "image" | "description"> {
+}
+
 export interface MenuItemPrices {
   name: string;
   price: number;

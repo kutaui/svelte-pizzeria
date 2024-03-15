@@ -4,8 +4,6 @@
   import type { Category } from "$lib/types/Category";
   import type { ActionData } from "./$types";
 
-  async function handleDeleteClick(id) {
-  }
 
   interface Props {
     data: {

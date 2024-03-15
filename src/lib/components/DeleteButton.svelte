@@ -23,7 +23,7 @@
         <button type="button" on:click={() => (showConfirm = false)}>
           Cancel
         </button>
-        <form method="POST" action={action} use:enhance>
+        <form method="POST" action={action}>
           <input name="deleteID" type="hidden" value={deleteID} />
           <button type="submit" class="primary">
             Yes,&nbsp;delete!
