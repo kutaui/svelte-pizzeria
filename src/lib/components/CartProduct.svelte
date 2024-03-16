@@ -1,13 +1,18 @@
 <script lang="ts">
-  import type { MenuItem } from "$lib/types/MenuItem";
+  import type { CartItem } from "$lib/types/MenuItem";
   import { cartProductPrice } from "$lib/helpers";
 
   interface Props {
-    product: MenuItem;
-    remove?: boolean;
+    product: CartItem;
+    removeItem?: (prod) => void;
   }
 
-  const { product, remove = false } = $props<Props>();
+  const { product, removeItem } = $props<Props>();
+  const handleRemoveItem = () => {
+    if (removeItem) {
+      removeItem(product);
+    }
+  };
 </script>
 <div class="flex items-center gap-4 border-b py-4">
   <div class="w-24">
@@ -23,23 +28,22 @@
       </div>
     {/if}
     {#if product.extras?.length > 0}
-      {#each product.extras as extra}
+      {#each product.extras as extra (extra.name)}
         <div class="text-sm text-gray-500">
-          <div key={extra.name}>{extra.name} ${extra.price}</div>
+          <div>{extra.name} ${+extra.price}</div>
         </div>
       {/each}
     {/if}
   </div>
   <div class="text-lg font-semibold">
-    ${cartProductPrice(product)}
+    ${+cartProductPrice(product)}
   </div>
-  {#if !!remove }
-    <div class="ml-2">
-      <button
-        type="button"
-        class="p-2">
-        <img src="/trash.svg" alt="" class="h-6 w-6" />
-      </button>
-    </div>
-  {/if}
+  <div class="ml-2">
+    <button
+      type="button"
+      on:click={() => handleRemoveItem()}
+      class="p-2">
+      <img src="/trash.svg" alt="" class="h-6 w-6" />
+    </button>
+  </div>
 </div>

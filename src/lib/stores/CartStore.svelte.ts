@@ -5,10 +5,10 @@ export function createCartStore() {
 
   const storageItems = ls ? localStorage.getItem("cart") ?? "[]" : "[]";
 
-  let cartItems: CartItem[] = JSON.parse(storageItems);
+  let cartItems: CartItem[] = $state(JSON.parse(storageItems));
 
   if (!Array.isArray(cartItems)) {
-    cartItems = []; // Ensure cartItems is always an array
+    cartItems = [];
   }
 
   function saveCartProductsToLocalStorage(cartProducts: CartItem[]) {
@@ -27,7 +27,7 @@ export function createCartStore() {
       cartItems.push(cartProduct);
       saveCartProductsToLocalStorage(cartItems);
     },
-    removeItem: (itemId: number) => {
+    removeItem: (itemId: number | undefined) => {
       const index = cartItems.findIndex((item) => item.id === itemId);
       if (index !== -1) {
         cartItems.splice(index, 1);
@@ -42,3 +42,8 @@ export function createCartStore() {
 }
 
 export const cartStore = createCartStore();
+
+// typescript go brrr
+function ore() {
+  throw new Error("Function not implemented.");
+}

@@ -1,7 +1,7 @@
 <script lang="ts">
   import MenuItemTile from "$lib/components/MenuItemTile.svelte";
   import type { MenuItem, MenuItemPrices } from "$lib/types/MenuItem";
-  import { cartStore } from "$lib/stores/CartStore";
+  import { cartStore } from "$lib/stores/CartStore.svelte";
 
   interface Props {
     menuItem: MenuItem;
@@ -41,11 +41,11 @@
   $effect(() => {
     let newSelectedPrice = +base_price;
 
-    if (selectedSize !== sizes[0]) {
+    if (selectedSize) {
       newSelectedPrice += +selectedSize.price;
     }
 
-    newSelectedPrice += selectedExtras.reduce((acc, e) => acc + +e.price, 0);
+    newSelectedPrice += +selectedExtras.reduce((acc, e) => acc + +e.price, 0);
     if (+newSelectedPrice !== +selectedPrice) {
       selectedPrice = newSelectedPrice;
     }
@@ -88,7 +88,7 @@
                   on:change={() => selectedSize = size}
                   checked={selectedSize?.name === size.name}
                   name="size" />
-                {size.name} ${+base_price + +size.price}
+                {size.name} ${Number(base_price) + Number(size.price)}
               </label>
             {/each}
           </div>
@@ -105,7 +105,7 @@
                   on:change={ev => handleExtraThingClick(ev, extraThing)}
                   checked={selectedExtras.map(e => e.name).includes(extraThing.name)}
                   name={extraThing.name} />
-                {extraThing.name} +${extraThing.price}
+                {extraThing.name} +${+extraThing.price}
               </label>
             {/each}
           </div>
