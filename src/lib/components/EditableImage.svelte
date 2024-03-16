@@ -1,12 +1,13 @@
 <script lang="ts">
   interface Props {
     link: string | null;
-    edit?: boolean;
+    product?: boolean;
     userId?: number;
+    imageInput?: HTMLInputElement;
   }
 
-  let { link, edit, userId } = $props<Props>();
-  const imageAction = edit ? `/users/${userId}/image?/edit` : "/profile?/image";
+  let { link, product, userId, imageInput } = $props<Props>();
+  const imageAction = product ? `/menu-items/new?/image` : "/profile?/image";
 
   const uploadImage = async (event: any) => {
     const file = event.target.files[0];
@@ -15,32 +16,38 @@
     reader.onload = async () => {
       const base64String = reader.result.toString().split(",")[1];
 
-      const formData = new FormData();
-      formData.append("image", base64String);
-      if (userId) {
-        formData.append("userId", userId.toString()); // Append userId to form data
+      if (imageInput) {
+        imageInput.value = base64String;
       }
+      link = base64String;
 
-      try {
-        const response = await fetch(imageAction, {
-          method: "POST",
-          body: formData,
-        });
-
-        if (response.ok) {
-          console.log("Image uploaded successfully");
-          link = base64String;
-        } else {
-          console.log("Image upload failed");
+      if (!product) {
+        const formData = new FormData();
+        formData.append("image", base64String);
+        if (userId) {
+          formData.append("userId", userId.toString()); // Append userId to form data
         }
-      } catch (error) {
-        console.error("Error uploading image:", error);
+
+        try {
+          const response = await fetch(imageAction, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (response.ok) {
+            console.log("Image uploaded successfully");
+          } else {
+            console.log("Image upload failed");
+          }
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
       }
     };
 
     reader.readAsDataURL(file);
   };
-  
+
 </script>
 
 {#if link}
@@ -63,7 +70,7 @@
   action={imageAction}
 >
   <label>
-    <input name="image" type="file" class="hidden" on:change={uploadImage} />
+    <input name="image" type="file" class="hidden" on:change={ uploadImage} />
     <span
       class="block cursor-pointer rounded-lg border border-gray-300 p-2 text-center">Change image</span>
   </label>

@@ -33,9 +33,8 @@
   });
 
   const action = edit ? `/users/${user?.id}?/edit` : "/profile?/profile";
-  console.log(user);
 
-  
+
 </script>
 
 {#if $page.form?.success}

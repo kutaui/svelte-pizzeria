@@ -32,10 +32,10 @@
     extra_ingredient_prices: menuItem?.extra_ingredient_prices || [],
     image: menuItem?.image || "",
   });
-
+  let imageInput: HTMLInputElement | null = $state(null);
   let sizesJSON = $derived(JSON.stringify(sizes));
   let extra_ingredient_pricesJSON = $derived(
-    JSON.stringify(extra_ingredient_prices)
+    JSON.stringify(extra_ingredient_prices),
   );
 
   function updateSizes(newSizes: MenuItemPrices[]) {
@@ -43,7 +43,7 @@
   }
 
   function updateExtraIngredientPrices(
-    newExtraIngredientPrices: MenuItemPrices[]
+    newExtraIngredientPrices: MenuItemPrices[],
   ) {
     extra_ingredient_prices = newExtraIngredientPrices;
   }
@@ -59,12 +59,13 @@
     };
   }}
 >
+  <input type="hidden" name="image" value={menuItem?.image} bind:this={imageInput} />
   <div
     class="items-start gap-4 md:grid"
     style="grid-template-columns: .3fr .7fr"
   >
     <div>
-      <EditableImage link={image} />
+      <EditableImage link={image} product {imageInput} />
     </div>
     <div class="grow">
       <label for="name">Item name</label>

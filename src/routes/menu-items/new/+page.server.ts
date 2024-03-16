@@ -8,7 +8,7 @@ export const load: PageServerLoad = async () => {
     categories: await db.execute(
       sql`SELECT *
           FROM categories
-          ORDER BY created_at ASC`
+          ORDER BY created_at ASC`,
     ),
   };
 };
@@ -21,8 +21,9 @@ export const actions = {
     const categoryID = data.get("category") as string;
     const basePrice = data.get("basePrice") as string;
     const sizesJSON = data.get("sizes") as string;
+    const image = data.get("image") as File;
     const extraIngredientPricesJSON = data.get(
-      "extraIngredientPrices"
+      "extraIngredientPrices",
     ) as string;
     const basePriceNumber = +basePrice;
 
@@ -30,8 +31,8 @@ export const actions = {
       return { message: "oof", success: false };
     }
     const menuItem = await db.execute(sql`
-      INSERT INTO menu_items (name, description, category_id, base_price, sizes, extra_ingredient_prices)
-      VALUES (${name}, ${description}, ${categoryID}, ${basePriceNumber}, ${sizesJSON}, ${extraIngredientPricesJSON})
+      INSERT INTO menu_items (name, description, category_id, base_price, sizes, extra_ingredient_prices, image)
+      VALUES (${name}, ${description}, ${categoryID}, ${basePriceNumber}, ${sizesJSON}, ${extraIngredientPricesJSON}, ${image})
     `);
 
     return redirect(300, `/menu-items`);

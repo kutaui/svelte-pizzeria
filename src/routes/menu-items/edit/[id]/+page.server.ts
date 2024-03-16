@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ params }) => {
   const result = await db.execute(
     sql`SELECT *
           FROM menu_items
-          WHERE id = ${id}`
+          WHERE id = ${id}`,
   );
 
   const menuItem = {
@@ -28,7 +28,7 @@ export const load: PageServerLoad = async ({ params }) => {
     categories: await db.execute(
       sql`SELECT *
           FROM categories
-          ORDER BY created_at ASC`
+          ORDER BY created_at ASC`,
     ),
     menuItem,
   };
@@ -43,8 +43,9 @@ export const actions = {
     const categoryID = data.get("category") as string;
     const basePrice = data.get("basePrice") as string;
     const sizesJSON = data.get("sizes") as string;
+    const image = data.get("image") as File;
     const extraIngredientPricesJSON = data.get(
-      "extraIngredientPrices"
+      "extraIngredientPrices",
     ) as string;
     const basePriceNumber = +basePrice;
 
@@ -55,7 +56,7 @@ export const actions = {
     const menuItem = await db.execute(
       sql`SELECT *
           FROM menu_items
-          WHERE id = ${id}`
+          WHERE id = ${id}`,
     );
 
     if (menuItem.length === 0) {
@@ -69,8 +70,9 @@ export const actions = {
               category_id             = ${categoryID},
               base_price              = ${basePriceNumber},
               sizes                   = ${sizesJSON},
-              extra_ingredient_prices = ${extraIngredientPricesJSON}
-          WHERE id = ${id}`
+              extra_ingredient_prices = ${extraIngredientPricesJSON},
+              image                   = ${image}
+          WHERE id = ${id}`,
     );
 
     if (result) {
@@ -82,7 +84,7 @@ export const actions = {
     const menuItem = await db.execute(
       sql`SELECT *
           FROM menu_items
-          WHERE id = ${id}`
+          WHERE id = ${id}`,
     );
     if (menuItem.length === 0) {
       return { message: "Menu item not found", success: false };
@@ -90,7 +92,7 @@ export const actions = {
     const result = await db.execute(
       sql`DELETE
           FROM menu_items
-          WHERE id = ${id}`
+          WHERE id = ${id}`,
     );
 
     return redirect(300, "/menu-items");

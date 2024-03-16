@@ -20,7 +20,8 @@
       text-center transition-all hover:bg-white hover:shadow-md hover:shadow-black/25"
 >
   <div class="text-center">
-    <img src={image} class="max-h-auto mx-auto block max-h-24" alt="pizza" />
+    <img src={`data:image/jpeg;base64,${image}`} class="max-h-auto mx-auto block max-h-24"
+         alt="pizza" />
   </div>
   <h4 class="my-3 text-xl font-semibold">{name}</h4>
   <p class="line-clamp-3 text-sm text-gray-500">

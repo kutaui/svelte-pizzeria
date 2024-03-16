@@ -32,7 +32,7 @@
             <div class="relative">
               <img
                 class="rounded-md"
-                src={item.image}
+                src={`data:image/jpeg;base64,${item.image}`}
                 alt={""}
                 width={200}
                 height={200}
