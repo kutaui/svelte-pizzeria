@@ -6,7 +6,7 @@
 
   interface Props {
     data: {
-      categories: Category[]
+      categories: Category[];
     };
     form: ActionData;
   }
@@ -23,5 +23,5 @@
       <span>Show all menu items</span>
     </a>
   </div>
-  <MenuItemForm menuItem={null} categories={categories} editItem={false} />
+  <MenuItemForm menuItem={null} {categories} editItem={false} />
 </section>

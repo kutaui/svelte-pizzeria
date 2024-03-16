@@ -33,8 +33,6 @@
   });
 
   const action = edit ? `/users/${user?.id}?/edit` : "/profile?/profile";
-  console.log("here", user);
-  console.log("here", admin);
 </script>
 
 {#if $page.form?.success}
@@ -51,7 +49,7 @@
   <form
     class="grow"
     method="POST"
-    action={action}
+    {action}
     use:enhance={() => {
       return async ({ update }) => {
         update({ reset: false });
@@ -80,7 +78,13 @@
     {#if currentUser?.admin}
       <div>
         <label class="mb-2 inline-flex items-center gap-2 p-2" for="adminCb">
-          <input name="adminCb" id="adminCb" type="checkbox" class="" bind:checked={admin} />
+          <input
+            name="adminCb"
+            id="adminCb"
+            type="checkbox"
+            class=""
+            bind:checked={admin}
+          />
           <span>Admin</span>
         </label>
       </div>

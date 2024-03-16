@@ -5,12 +5,11 @@ import type { PageServerLoad } from "./$types";
 import { parseMenuItemPrices } from "$lib/helpers";
 
 export const load: PageServerLoad = async () => {
-
   return {
     menuItems: await db.execute(
       sql`SELECT *
           FROM menu_items
-          ORDER BY created_at ASC`),
+          ORDER BY created_at ASC`
+    ),
   };
 };
-

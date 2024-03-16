@@ -31,12 +31,11 @@
     });
     update(newProps);
   }
-
 </script>
 
 <div class="mb-2 rounded-md bg-gray-200 p-2">
   <button
-    on:click={() => isOpen = !isOpen}
+    on:click={() => (isOpen = !isOpen)}
     class="inline-flex justify-start border-0 p-1"
     type="button"
   >
@@ -54,21 +53,39 @@
       {#each props as size, index (index)}
         <div class="flex items-end gap-2">
           <div>
-            <label for={isSize ? `sizeName-${index}`: `ingredientName-${index}`}>Name</label>
-            <input name={isSize ? `sizeName-${index}`: `ingredientName-${index}`} type="text"
-                   placeholder="Size name"
-                   bind:value={size.name}
-                   on:change={(ev) => updateProp(index,"name",ev.currentTarget.value)} />
+            <label
+              for={isSize ? `sizeName-${index}` : `ingredientName-${index}`}
+              >Name</label
+            >
+            <input
+              name={isSize ? `sizeName-${index}` : `ingredientName-${index}`}
+              type="text"
+              placeholder="Size name"
+              bind:value={size.name}
+              on:change={(ev) =>
+                updateProp(index, "name", ev.currentTarget.value)}
+            />
           </div>
           <div>
-            <label for={isSize ? `sizePrice-${index}`: `ingredientPrice-${index}`}>Extra
-              price</label>
-            <input name={isSize ? `sizePrice-${index}`: `ingredientPrice-${index}`} type="number"
-                   placeholder="Extra price" bind:value={size.price}
-                   on:change={(ev) => updateProp(index,"price",ev.currentTarget.value)} />
+            <label
+              for={isSize ? `sizePrice-${index}` : `ingredientPrice-${index}`}
+              >Extra price</label
+            >
+            <input
+              name={isSize ? `sizePrice-${index}` : `ingredientPrice-${index}`}
+              type="number"
+              placeholder="Extra price"
+              bind:value={size.price}
+              on:change={(ev) =>
+                updateProp(index, "price", ev.currentTarget.value)}
+            />
           </div>
           <div>
-            <button type="button" class="mb-2 bg-white px-2" on:click={() => removeProp(index)}>
+            <button
+              type="button"
+              class="mb-2 bg-white px-2"
+              on:click={() => removeProp(index)}
+            >
               <img src="/trash.svg" alt="" class="h-6 w-6" />
             </button>
           </div>

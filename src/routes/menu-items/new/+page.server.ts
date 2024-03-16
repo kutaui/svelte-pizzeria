@@ -8,11 +8,10 @@ export const load: PageServerLoad = async () => {
     categories: await db.execute(
       sql`SELECT *
           FROM categories
-          ORDER BY created_at ASC`,
+          ORDER BY created_at ASC`
     ),
   };
 };
-
 
 export const actions = {
   create: async ({ request }) => {
@@ -22,7 +21,9 @@ export const actions = {
     const categoryID = data.get("category") as string;
     const basePrice = data.get("basePrice") as string;
     const sizesJSON = data.get("sizes") as string;
-    const extraIngredientPricesJSON = data.get("extraIngredientPrices") as string;
+    const extraIngredientPricesJSON = data.get(
+      "extraIngredientPrices"
+    ) as string;
     const basePriceNumber = +basePrice;
 
     if (!name || !description || !categoryID || !basePrice) {
@@ -32,7 +33,6 @@ export const actions = {
       INSERT INTO menu_items (name, description, category_id, base_price, sizes, extra_ingredient_prices)
       VALUES (${name}, ${description}, ${categoryID}, ${basePriceNumber}, ${sizesJSON}, ${extraIngredientPricesJSON})
     `);
-
 
     return redirect(300, `/menu-items`);
   },

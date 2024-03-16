@@ -57,5 +57,3 @@ export const orders = pgTable("orders", {
   paid: boolean("paid").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
-
-

@@ -21,7 +21,11 @@ export function createCartStore() {
     get cartItems() {
       return cartItems;
     },
-    addItem: (item: CartItem, size: MenuItemPrices | null = null, extras: MenuItemPrices[] | [] = []) => {
+    addItem: (
+      item: CartItem,
+      size: MenuItemPrices | undefined = undefined,
+      extras: MenuItemPrices[] | [] = []
+    ) => {
       const cartProduct = { ...item, size, extras };
 
       cartItems.push(cartProduct);

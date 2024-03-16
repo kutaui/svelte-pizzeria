@@ -1,6 +1,5 @@
 <script lang="ts">
   import AddToCartButton from "./AddToCartButton.svelte";
-  import type { MenuItem } from "$lib/types/MenuItem";
 
   interface Props {
     item: {
@@ -8,28 +7,24 @@
       description: string;
       image: string;
       base_price: number;
-      hasSizesOrExtras: boolean;
     };
-    onAddToCart: (item: MenuItem) => void;
-
+    onAddToCart: () => void;
   }
 
   let { onAddToCart, item } = $props<Props>();
-  let { name, description, image, base_price, hasSizesOrExtras } = item;
+  let { name, description, image, base_price } = item;
 </script>
 
-<div class="bg-gray-200 p-4 rounded-lg text-center
-      group hover:bg-white hover:shadow-md hover:shadow-black/25 transition-all">
+<div
+  class="group rounded-lg bg-gray-200 p-4
+      text-center transition-all hover:bg-white hover:shadow-md hover:shadow-black/25"
+>
   <div class="text-center">
-    <img src={image} class="max-h-auto max-h-24 block mx-auto" alt="pizza" />
+    <img src={image} class="max-h-auto mx-auto block max-h-24" alt="pizza" />
   </div>
-  <h4 class="font-semibold text-xl my-3">{name}</h4>
-  <p class="text-gray-500 text-sm line-clamp-3">
+  <h4 class="my-3 text-xl font-semibold">{name}</h4>
+  <p class="line-clamp-3 text-sm text-gray-500">
     {description}
   </p>
-  <AddToCartButton
-    hasSizesOrExtras={hasSizesOrExtras}
-    onClick={onAddToCart}
-    base_price={base_price}
-  />
+  <AddToCartButton onClick={onAddToCart} {base_price} />
 </div>

@@ -4,7 +4,6 @@
   import type { Category } from "$lib/types/Category";
   import type { ActionData } from "./$types";
 
-
   interface Props {
     data: {
       categories: Category[];

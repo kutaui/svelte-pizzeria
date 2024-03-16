@@ -7,7 +7,7 @@ export const load: PageServerLoad = async () => {
     orders: await db.execute(
       sql`SELECT *
           FROM orders
-          ORDER BY created_at ASC`,
+          ORDER BY created_at ASC`
     ),
   };
 };

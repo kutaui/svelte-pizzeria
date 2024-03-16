@@ -21,7 +21,6 @@ export const handle: Handle = async ({ event, resolve }) => {
       event.cookies.delete("authToken", { path: "/" });
       event.locals.user = undefined;
       return redirect(303, "/login");
-
     }
 
     const result = await db.query.users.findFirst({
@@ -46,7 +45,6 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   if (event.locals.user === undefined && event.url.pathname === "/profile") {
-
     return redirect(303, "/login");
   }
   return resolve(event);

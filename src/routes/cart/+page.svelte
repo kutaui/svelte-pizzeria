@@ -29,40 +29,35 @@
   });
 </script>
 
-
 <section class="mt-8">
   <div class="text-center">
     <SectionHeaders mainHeader="Cart" />
   </div>
-  <div class="mt-8 grid gap-8 grid-cols-2">
+  <div class="mt-8 grid grid-cols-2 gap-8">
     <div>
       {#if cartItems.length === 0}
         <div>No products in your shopping cart</div>
       {/if}
       {#if cartItems.length > 0}
         {#each cartItems as product, index (index)}
-          <CartProduct
-            product={product}
-            removeItem={handleRemoveItem}
-          />
+          <CartProduct {product} removeItem={handleRemoveItem} />
         {/each}
       {/if}
 
-
-      <div class="py-2 pr-16 flex justify-end items-center">
+      <div class="flex items-center justify-end py-2 pr-16">
         <div class="text-gray-500">
           Subtotal:<br />
           Delivery:<br />
           Total:
         </div>
-        <div class="font-semibold pl-2 text-right">
+        <div class="pl-2 text-right font-semibold">
           ${subtotal}<br />
           $5<br />
           ${subtotal + 5}
         </div>
       </div>
     </div>
-    <div class="bg-gray-100 p-4 rounded-lg">
+    <div class="rounded-lg bg-gray-100 p-4">
       <h2>Checkout</h2>
       <AddressInputs
         addressProps={{ phone, streetAddress, postalCode, city, country }}

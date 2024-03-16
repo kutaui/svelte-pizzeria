@@ -8,10 +8,11 @@ export interface MenuItem {
   sizes: MenuItemPrices[];
   extra_ingredient_prices: MenuItemPrices[];
   createdAt?: Date;
+  size?: MenuItemPrices;
+  extras?: MenuItemPrices[];
 }
 
-export interface CartItem extends Omit<MenuItem, "description"> {
-}
+export interface CartItem extends Omit<MenuItem, "description"> {}
 
 export interface MenuItemPrices {
   name: string;

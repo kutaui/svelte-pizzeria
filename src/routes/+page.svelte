@@ -6,7 +6,7 @@
 
   interface Props {
     data: {
-      menuItems: MenuItem[]
+      menuItems: MenuItem[];
     };
   }
 

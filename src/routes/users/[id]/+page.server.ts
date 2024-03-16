@@ -10,14 +10,13 @@ export const load: PageServerLoad = async ({ params, locals }) => {
   const result = await db.execute(
     sql`SELECT *
           FROM users
-          WHERE id = ${id}`,
+          WHERE id = ${id}`
   );
   return {
     user: result[0],
     currentUser,
   };
 };
-
 
 export const actions = {
   edit: async ({ request, params }) => {
@@ -29,7 +28,6 @@ export const actions = {
     const city = data.get("city") as string;
     const country = data.get("country") as string;
     const telephone = data.get("telephone") as string;
-    console.log(data);
 
     await db.execute(
       sql`UPDATE "users"
@@ -39,9 +37,8 @@ export const actions = {
               city           = NULLIF(${city}, ''),
               country        = NULLIF(${country}, ''),
               phone          = NULLIF(${telephone}, '')
-          WHERE id = ${id}`,
+          WHERE id = ${id}`
     );
-
 
     return { message: "Menu item updated", success: true };
   },

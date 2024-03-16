@@ -44,6 +44,5 @@ export const actions = {
 
     return { success: true };
   },
-  image: async ({ request }) => {
-  },
+  image: async ({ request }) => {},
 } satisfies Actions;

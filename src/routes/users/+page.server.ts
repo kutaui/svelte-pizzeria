@@ -7,7 +7,7 @@ export const load: PageServerLoad = async () => {
     users: await db.execute(
       sql`SELECT *
           FROM users
-          ORDER BY created_at ASC`,
+          ORDER BY created_at ASC`
     ),
   };
 };

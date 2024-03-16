@@ -13,7 +13,6 @@
   let { data } = $props<Props>();
   let { user } = data;
   let profile = user;
-
 </script>
 
 <section class="mt-8">

@@ -6,8 +6,8 @@
 
   interface Props {
     data: {
-      menuItems: MenuItem[],
-      categories: Category[]
+      menuItems: MenuItem[];
+      categories: Category[];
     };
   }
 
@@ -22,13 +22,12 @@
         <div class="text-center">
           <SectionHeaders mainHeader={c.name} />
         </div>
-        <div class="grid sm:grid-cols-3 gap-4 mt-6 mb-12">
-          {#each menuItems.filter(item => item.category_id === Number(c.id)) as item}
+        <div class="mb-12 mt-6 grid gap-4 sm:grid-cols-3">
+          {#each menuItems.filter((item) => item.category_id === Number(c.id)) as item}
             <MenuItemComponent menuItem={item} />
           {/each}
         </div>
       </div>
     {/each}
   {/if}
-
 </section>

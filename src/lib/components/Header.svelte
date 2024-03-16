@@ -16,22 +16,24 @@
     <a href="/about">About</a>
     <a href="/contact">Contact</a>
   </nav>
-  <nav class="flex items-center gap-4 font-semibold text-gray-600" data-sveltekit-reload>
+  <nav
+    class="flex items-center gap-4 font-semibold text-gray-600"
+    data-sveltekit-reload
+  >
     {#if !user}
       <a href="/login" class="rounded-full bg-primary px-8 py-2 text-white"
-      >Login</a
+        >Login</a
       >
       <a href="/register" class="rounded-full bg-primary px-8 py-2 text-white"
-      >Register</a
+        >Register</a
       >
     {:else if user}
       <a href="/profile" class="rounded-full bg-primary px-8 py-2 text-white"
-      >Profile</a
+        >Profile</a
       >
       <a href="/logout" class="rounded-full bg-primary px-8 py-2 text-white"
-      >Logout</a
+        >Logout</a
       >
     {/if}
-
   </nav>
 </header>

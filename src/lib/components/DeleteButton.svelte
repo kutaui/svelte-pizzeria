@@ -9,8 +9,9 @@
 
   let { label, deleteID, category = false } = $props<Props>();
   let showConfirm = $state(false);
-  const action = category ? "/categories?/deleteCategory" :
-    `/menu-items/edit/${deleteID}?/delete`;
+  const action = category
+    ? "/categories?/deleteCategory"
+    : `/menu-items/edit/${deleteID}?/delete`;
 </script>
 
 {#if showConfirm}
@@ -23,11 +24,9 @@
         <button type="button" on:click={() => (showConfirm = false)}>
           Cancel
         </button>
-        <form method="POST" action={action}>
+        <form method="POST" {action}>
           <input name="deleteID" type="hidden" value={deleteID} />
-          <button type="submit" class="primary">
-            Yes,&nbsp;delete!
-          </button>
+          <button type="submit" class="primary"> Yes,&nbsp;delete! </button>
         </form>
       </div>
     </div>

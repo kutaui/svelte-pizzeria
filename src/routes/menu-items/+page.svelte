@@ -2,7 +2,6 @@
   import UserTabs from "$lib/components/UserTabs.svelte";
   import type { MenuItem } from "$lib/types/MenuItem";
 
-
   interface Props {
     data: {
       menuItems: MenuItem[];

@@ -9,7 +9,6 @@
   };
 
   let { data } = $props<Props>();
-
 </script>
 
 <Toaster />

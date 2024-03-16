@@ -2,7 +2,6 @@
   interface Props {
     subHeader?: string;
     mainHeader: string;
-	
   }
 
   let { subHeader, mainHeader } = $props<Props>();

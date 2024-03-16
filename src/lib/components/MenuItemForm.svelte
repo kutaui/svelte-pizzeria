@@ -11,16 +11,17 @@
     editItem: boolean;
   }
 
-
   let { menuItem, categories, editItem = false } = $props<Props>();
-  const action = editItem ? `/menu-items/edit/${menuItem?.id}?/edit` : "/menu-items/new?/create";
+  const action = editItem
+    ? `/menu-items/edit/${menuItem?.id}?/edit`
+    : "/menu-items/new?/create";
   let {
     name,
     description,
     category,
     basePrice,
     sizes,
-    extraIngredientPrices,
+    extra_ingredient_prices,
     image,
   } = $state({
     name: menuItem?.name || "",
@@ -28,30 +29,36 @@
     category: menuItem?.category_id || "",
     basePrice: menuItem?.base_price || "",
     sizes: menuItem?.sizes || [],
-    extraIngredientPrices: menuItem?.extraIngredientPrices || [],
+    extra_ingredient_prices: menuItem?.extra_ingredient_prices || [],
     image: menuItem?.image || "",
   });
 
   let sizesJSON = $derived(JSON.stringify(sizes));
-  let extraIngredientPricesJSON = $derived(JSON.stringify(extraIngredientPrices));
-
+  let extra_ingredient_pricesJSON = $derived(
+    JSON.stringify(extra_ingredient_prices)
+  );
 
   function updateSizes(newSizes: MenuItemPrices[]) {
     sizes = newSizes;
   }
 
-  function updateExtraIngredientPrices(newExtraIngredientPrices: MenuItemPrices[]) {
-    extraIngredientPrices = newExtraIngredientPrices;
+  function updateExtraIngredientPrices(
+    newExtraIngredientPrices: MenuItemPrices[]
+  ) {
+    extra_ingredient_prices = newExtraIngredientPrices;
   }
-
-
 </script>
 
-<form class="mx-auto mt-8 max-w-2xl" method="POST" action={action} use:enhance={() => {
-      return async ({ update }) => {
-        update({ reset: !editItem });
-      };
-    }}>
+<form
+  class="mx-auto mt-8 max-w-2xl"
+  method="POST"
+  {action}
+  use:enhance={() => {
+    return async ({ update }) => {
+      update({ reset: !editItem });
+    };
+  }}
+>
   <div
     class="items-start gap-4 md:grid"
     style="grid-template-columns: .3fr .7fr"
@@ -85,12 +92,16 @@
       <MenuItemPriceProps
         name={"Extra ingredients"}
         addLabel={"Add ingredients prices"}
-        props={extraIngredientPrices}
+        props={extra_ingredient_prices}
         update={updateExtraIngredientPrices}
         isSize={false}
       />
       <input name="sizes" type="hidden" value={sizesJSON} />
-      <input name="extraIngredientPrices" type="hidden" value={extraIngredientPricesJSON} />
+      <input
+        name="extra_ingredient_prices"
+        type="hidden"
+        value={extra_ingredient_pricesJSON}
+      />
 
       <button type="submit">Save</button>
     </div>
