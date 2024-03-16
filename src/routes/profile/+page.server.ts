@@ -44,5 +44,19 @@ export const actions = {
 
     return { success: true };
   },
-  image: async ({ request }) => {},
+  image: async ({ request }) => {
+    const data = await request.formData();
+    const image = data.get("image") as File;
+    const userId = data.get("userId") as string;
+
+    const result = await db.execute(sql`
+        UPDATE "users"
+        SET image = ${image}
+        WHERE "users".id = ${userId}
+    `);
+
+    if (result) {
+      return { success: true };
+    }
+  },
 } satisfies Actions;

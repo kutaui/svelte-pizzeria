@@ -1,35 +1,52 @@
 <script lang="ts">
   interface Props {
     link: string | null;
+    edit?: boolean;
+    userId?: number;
   }
 
-  let { link } = $props<Props>();
+  let { link, edit, userId } = $props<Props>();
+  const imageAction = edit ? `/users/${userId}/image?/edit` : "/profile?/image";
 
-  async function handleFileChange(ev: Event) {
-    const files = (ev.target as HTMLInputElement).files;
-    if (files?.length === 1) {
-      const data = new FormData();
-      data.set("file", files[0]);
+  const uploadImage = async (event: any) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
 
-      const uploadPromise = fetch("/api/upload", {
-        method: "POST",
-        body: data,
-      }).then((response) => {
+    reader.onload = async () => {
+      const base64String = reader.result.toString().split(",")[1];
+
+      const formData = new FormData();
+      formData.append("image", base64String);
+      if (userId) {
+        formData.append("userId", userId.toString()); // Append userId to form data
+      }
+
+      try {
+        const response = await fetch(imageAction, {
+          method: "POST",
+          body: formData,
+        });
+
         if (response.ok) {
-          return response.json().then((newLink) => {
-            link = newLink;
-          });
+          console.log("Image uploaded successfully");
+          link = base64String;
+        } else {
+          console.log("Image upload failed");
         }
-        throw new Error("Something went wrong");
-      });
-    }
-  }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    };
+
+    reader.readAsDataURL(file);
+  };
+  
 </script>
 
 {#if link}
   <img
     class="mb-1 h-full w-full rounded-lg"
-    src={link}
+    src={`data:image/jpeg;base64,${link}`}
     width={250}
     height={250}
     alt={"avatar"}
@@ -39,11 +56,16 @@
   <div class="mb-1 rounded-lg bg-gray-200 p-4 text-center text-gray-500">
     No image
   </div>
-  <label>
-    <input type="file" class="hidden" onChange={handleFileChange} />
-    <span
-      class="block cursor-pointer rounded-lg border border-gray-300 p-2 text-center"
-      >Change image</span
-    >
-  </label>
 {/if}
+
+<form
+  method="post"
+  action={imageAction}
+>
+  <label>
+    <input name="image" type="file" class="hidden" on:change={uploadImage} />
+    <span
+      class="block cursor-pointer rounded-lg border border-gray-300 p-2 text-center">Change image</span>
+  </label>
+</form>
+

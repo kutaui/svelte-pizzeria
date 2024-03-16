@@ -33,6 +33,9 @@
   });
 
   const action = edit ? `/users/${user?.id}?/edit` : "/profile?/profile";
+  console.log(user);
+
+  
 </script>
 
 {#if $page.form?.success}
@@ -43,7 +46,7 @@
 <div class="gap-4 md:flex">
   <div>
     <div class="relative max-w-[120px] rounded-lg p-2">
-      <EditableImage link={image} />
+      <EditableImage link={image} userId={user.id} />
     </div>
   </div>
   <form
