@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { UserWithoutPassword } from "$lib/types/User";
-  import type { Profile } from "$lib/types/Profile";
 
   interface Props {
     user: UserWithoutPassword | undefined;

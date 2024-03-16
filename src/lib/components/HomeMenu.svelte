@@ -24,7 +24,8 @@
     <SectionHeaders subHeader="check out" mainHeader="Our Best Sellers" />
   </div>
   <div class="grid gap-4 sm:grid-cols-3">
-    {#each bestSellers as menuItem}
+    {#each bestSellers as menuItem (menuItem.name)}
+      {console.log(menuItem, "asd")}
       <MenuItemComponent {menuItem} />
     {/each}
   </div>

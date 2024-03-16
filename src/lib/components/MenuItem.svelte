@@ -1,6 +1,6 @@
 <script lang="ts">
   import MenuItemTile from "$lib/components/MenuItemTile.svelte";
-  import type { MenuItem } from "$lib/types/MenuItem";
+  import type { MenuItem, MenuItemPrices } from "$lib/types/MenuItem";
   import { cartStore } from "$lib/stores/CartStore";
 
   interface Props {
@@ -8,21 +8,20 @@
   }
 
   let { menuItem } = $props<Props>();
-  let { name, description, image, base_price, sizes, extra_ingredient_prices } = $state(menuItem);
+  let { name, description, image, base_price, sizes, extra_ingredient_prices } =
+    $state<MenuItem>(menuItem);
   let showPopup = $state(false);
   let selectedSize = $state(sizes[0]);
-  let selectedExtras = $state([]);
+  let selectedExtras = $state<MenuItemPrices[]>([]);
   const { addItem } = cartStore;
-  console.log(menuItem);
   let selectedPrice = $state(+base_price);
 
-
-  function handleExtraThingClick(ev, extraThing) {
+  function handleExtraThingClick(ev, extraThing: MenuItemPrices) {
     const checked = ev.target.checked;
     if (checked) {
       selectedExtras.push(extraThing);
     } else {
-      selectedExtras = selectedExtras.filter(e => e.name !== extraThing.name);
+      selectedExtras = selectedExtras.filter((e: MenuItemPrices) => e.name !== extraThing.name);
     }
   }
 
@@ -41,13 +40,13 @@
 
   $effect(() => {
     let newSelectedPrice = +base_price;
-    if (selectedSize) {
+
+    if (selectedSize !== sizes[0]) {
       newSelectedPrice += +selectedSize.price;
     }
-    newSelectedPrice += selectedExtras.reduce((acc, e) => acc + +e.price, 0);
 
-    // Update selectedPrice only if it's different from the new value
-    if (newSelectedPrice !== selectedPrice) {
+    newSelectedPrice += selectedExtras.reduce((acc, e) => acc + +e.price, 0);
+    if (+newSelectedPrice !== +selectedPrice) {
       selectedPrice = newSelectedPrice;
     }
   });

@@ -8,9 +8,10 @@
   interface Props {
     user: UserWithoutPassword;
     edit?: boolean;
+    currentUser?: UserWithoutPassword;
   }
 
-  let { user, edit } = $props<Props>();
+  let { user, edit, currentUser } = $props<Props>();
   let {
     name,
     phone,
@@ -19,6 +20,7 @@
     city,
     country,
     image,
+    admin,
   }: Profile = $state({
     name: user?.name || "",
     phone: user?.phone || "",
@@ -27,10 +29,12 @@
     city: user?.city || "",
     country: user?.country || "",
     image: user?.image || "",
+    admin: user?.admin || false,
   });
 
   const action = edit ? `/users/${user?.id}?/edit` : "/profile?/profile";
-
+  console.log("here", user);
+  console.log("here", admin);
 </script>
 
 {#if $page.form?.success}
@@ -73,10 +77,10 @@
     <AddressInputs
       addressProps={{ phone, streetAddress, postalCode, city, country }}
     />
-    {#if user?.admin}
+    {#if currentUser?.admin}
       <div>
         <label class="mb-2 inline-flex items-center gap-2 p-2" for="adminCb">
-          <input id="adminCb" type="checkbox" class="" value={"1"} />
+          <input name="adminCb" id="adminCb" type="checkbox" class="" bind:checked={admin} />
           <span>Admin</span>
         </label>
       </div>

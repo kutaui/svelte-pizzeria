@@ -23,14 +23,14 @@ export const actions = {
     const basePrice = data.get("basePrice") as string;
     const sizesJSON = data.get("sizes") as string;
     const extraIngredientPricesJSON = data.get("extraIngredientPrices") as string;
+    const basePriceNumber = +basePrice;
 
     if (!name || !description || !categoryID || !basePrice) {
       return { message: "oof", success: false };
     }
-
     const menuItem = await db.execute(sql`
       INSERT INTO menu_items (name, description, category_id, base_price, sizes, extra_ingredient_prices)
-      VALUES (${name}, ${description}, ${categoryID}, ${basePrice}, ${sizesJSON}, ${extraIngredientPricesJSON})
+      VALUES (${name}, ${description}, ${categoryID}, ${basePriceNumber}, ${sizesJSON}, ${extraIngredientPricesJSON})
     `);
 
 

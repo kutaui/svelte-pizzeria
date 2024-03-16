@@ -1,9 +1,11 @@
 import type { PageServerLoad } from "./$types";
 import { db } from "$lib/db/db.server";
 import { sql } from "drizzle-orm";
-import { type Actions, redirect } from "@sveltejs/kit";
+import { type Actions } from "@sveltejs/kit";
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params, locals }) => {
+  const { user: currentUser } = locals;
+
   const id = params.id;
   const result = await db.execute(
     sql`SELECT *
@@ -12,6 +14,7 @@ export const load: PageServerLoad = async ({ params }) => {
   );
   return {
     user: result[0],
+    currentUser,
   };
 };
 
@@ -26,7 +29,7 @@ export const actions = {
     const city = data.get("city") as string;
     const country = data.get("country") as string;
     const telephone = data.get("telephone") as string;
-
+    console.log(data);
 
     await db.execute(
       sql`UPDATE "users"

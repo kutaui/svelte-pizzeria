@@ -1,4 +1,4 @@
-import type { CartItem } from "$lib/types/MenuItem";
+import type { CartItem, MenuItemPrices } from "$lib/types/MenuItem";
 
 export function createCartStore() {
   const ls = typeof window !== "undefined" ? window.localStorage : null;
@@ -21,7 +21,7 @@ export function createCartStore() {
     get cartItems() {
       return cartItems;
     },
-    addItem: (item: CartItem, size = null, extras = []) => {
+    addItem: (item: CartItem, size: MenuItemPrices | null = null, extras: MenuItemPrices[] | [] = []) => {
       const cartProduct = { ...item, size, extras };
 
       cartItems.push(cartProduct);

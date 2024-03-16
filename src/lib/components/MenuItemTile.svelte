@@ -17,6 +17,7 @@
   let { onAddToCart, item } = $props<Props>();
   let { name, description, image, base_price, hasSizesOrExtras } = item;
 </script>
+
 <div class="bg-gray-200 p-4 rounded-lg text-center
       group hover:bg-white hover:shadow-md hover:shadow-black/25 transition-all">
   <div class="text-center">

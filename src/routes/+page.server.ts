@@ -1,5 +1,4 @@
 import { db } from "$lib/db/db.server";
-import { users } from "$lib/db/schema";
 import type { PageServerLoad } from "./$types";
 import { sql } from "drizzle-orm";
 

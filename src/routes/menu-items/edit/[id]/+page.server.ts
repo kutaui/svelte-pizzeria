@@ -40,6 +40,7 @@ export const actions = {
     const basePrice = data.get("basePrice") as string;
     const sizesJSON = data.get("sizes") as string;
     const extraIngredientPricesJSON = data.get("extraIngredientPrices") as string;
+    const basePriceNumber = +basePrice;
 
     if (!name || !description || !categoryID || !basePrice) {
       return { message: "oof", success: false };
@@ -60,7 +61,7 @@ export const actions = {
           SET name                    = ${name},
               description             = ${description},
               category_id             = ${categoryID},
-              base_price              = ${basePrice},
+              base_price              = ${basePriceNumber},
               sizes                   = ${sizesJSON},
               extra_ingredient_prices = ${extraIngredientPricesJSON}
           WHERE id = ${id}`,
