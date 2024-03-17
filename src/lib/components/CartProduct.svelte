@@ -18,7 +18,7 @@
 <div class="flex items-center gap-4 border-b py-4">
   <div class="w-24">
     <img width={240} height={240}
-         src={`data:image/jpeg;base64,${product.image}`}
+         src={product.image}
          alt={""} />
   </div>
   <div class="grow">

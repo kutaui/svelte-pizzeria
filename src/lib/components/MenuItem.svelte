@@ -71,7 +71,7 @@
         class="overflow-y-scroll p-2"
         style="maxHeight: calc(100vh - 100px);"
       >
-        <img src={`data:image/jpeg;base64,${image}`} alt={name} width={300} height={200}
+        <img src={image} alt={name} width={300} height={300}
              class="mx-auto" />
         <h2 class="mb-2 text-center text-lg font-bold">{name}</h2>
         <p class="mb-2 text-center text-sm text-gray-500">

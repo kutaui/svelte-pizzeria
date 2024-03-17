@@ -1,59 +1,36 @@
 <script lang="ts">
+
   interface Props {
     link: string | null;
     product?: boolean;
     userId?: number;
-    imageInput?: HTMLInputElement;
+    form?: any;
   }
 
-  let { link, product, userId, imageInput } = $props<Props>();
+  let { link, product, userId, form } = $props<Props>();
   const imageAction = product ? `/menu-items/new?/image` : "/profile?/image";
 
-  const uploadImage = async (event: any) => {
+
+  const handleFileSelect = (event: Event) => {
     const file = event.target.files[0];
-    const reader = new FileReader();
 
-    reader.onload = async () => {
-      const base64String = reader.result.toString().split(",")[1];
+    console.log(file, "file");
+    if (file) {
+      const formData = new FormData();
+      formData.append("image", file);
+      form.requestSubmit();
+    }
 
-      if (imageInput) {
-        imageInput.value = base64String;
-      }
-      link = base64String;
-
-      if (!product) {
-        const formData = new FormData();
-        formData.append("image", base64String);
-        if (userId) {
-          formData.append("userId", userId.toString()); // Append userId to form data
-        }
-
-        try {
-          const response = await fetch(imageAction, {
-            method: "POST",
-            body: formData,
-          });
-
-          if (response.ok) {
-            console.log("Image uploaded successfully");
-          } else {
-            console.log("Image upload failed");
-          }
-        } catch (error) {
-          console.error("Error uploading image:", error);
-        }
-      }
-    };
-
-    reader.readAsDataURL(file);
+    console.log(form, "asd");
   };
+
 
 </script>
 
 {#if link}
   <img
     class="mb-1 h-full w-full rounded-lg"
-    src={`data:image/jpeg;base64,${link}`}
+    src={link}
     width={250}
     height={250}
     alt={"avatar"}
@@ -68,9 +45,14 @@
 <form
   method="post"
   action={imageAction}
+  bind:this={form}
+  enctype="multipart/form-data"
 >
   <label>
-    <input name="image" type="file" class="hidden" on:change={ uploadImage} />
+    <input name="image" type="file" class="hidden"
+           on:change={handleFileSelect}
+    />
+    <input name="userId" type="hidden" value={userId} />
     <span
       class="block cursor-pointer rounded-lg border border-gray-300 p-2 text-center">Change image</span>
   </label>

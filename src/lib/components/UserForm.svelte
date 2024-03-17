@@ -9,9 +9,10 @@
     user: UserWithoutPassword;
     edit?: boolean;
     currentUser?: UserWithoutPassword;
+    form?: any;
   }
 
-  let { user, edit, currentUser } = $props<Props>();
+  let { user, edit, currentUser, form } = $props<Props>();
   let {
     name,
     phone,
@@ -45,7 +46,7 @@
 <div class="gap-4 md:flex">
   <div>
     <div class="relative max-w-[120px] rounded-lg p-2">
-      <EditableImage link={image} userId={user.id} />
+      <EditableImage link={image} userId={user.id} {form} />
     </div>
   </div>
   <form

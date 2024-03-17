@@ -5,7 +5,7 @@ import { parseMenuItemPrices } from "$lib/helpers";
 
 export const load: PageServerLoad = async () => {
   const menuItems = await db.execute(
-    sql`SELECT *
+    sql`SELECT id, name, description, sizes, extra_ingredient_prices, category_id, base_price
         FROM menu_items
         ORDER BY created_at ASC`,
   );

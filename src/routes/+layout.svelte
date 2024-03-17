@@ -3,6 +3,12 @@
   import Header from "$lib/components/Header.svelte";
   import type { UserWithoutPassword } from "$lib/types/User";
   import { Toaster } from "svelte-french-toast";
+  import Honeybadger from "@honeybadger-io/js";
+
+  Honeybadger.configure({
+    apiKey: "hbp_14F9s0jLA82d6AjF8fA7FPrtLjsFcB0oiHdV",
+    environment: "production",
+  });
 
   type Props = {
     data: { user: UserWithoutPassword | undefined };

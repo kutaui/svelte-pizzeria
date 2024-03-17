@@ -1,5 +1,4 @@
 <script lang="ts">
-  import EditableImage from "$lib/components/EditableImage.svelte";
   import type { MenuItem, MenuItemPrices } from "$lib/types/MenuItem";
   import type { Category } from "$lib/types/Category";
   import MenuItemPriceProps from "$lib/components/MenuItemPriceProps.svelte";
@@ -9,12 +8,14 @@
     menuItem: MenuItem | null;
     categories: Category[];
     editItem: boolean;
+    form: any;
   }
 
-  let { menuItem, categories, editItem = false } = $props<Props>();
+  let { menuItem, categories, editItem = false, form } = $props<Props>();
   const action = editItem
     ? `/menu-items/edit/${menuItem?.id}?/edit`
     : "/menu-items/new?/create";
+
   let {
     name,
     description,
@@ -32,7 +33,6 @@
     extra_ingredient_prices: menuItem?.extra_ingredient_prices || [],
     image: menuItem?.image || "",
   });
-  let imageInput: HTMLInputElement | null = $state(null);
   let sizesJSON = $derived(JSON.stringify(sizes));
   let extra_ingredient_pricesJSON = $derived(
     JSON.stringify(extra_ingredient_prices),
@@ -47,6 +47,8 @@
   ) {
     extra_ingredient_prices = newExtraIngredientPrices;
   }
+
+
 </script>
 
 <form
@@ -58,14 +60,34 @@
       update({ reset: !editItem });
     };
   }}
+  enctype="multipart/form-data"
+  bind:this={form}
 >
-  <input type="hidden" name="image" value={menuItem?.image} bind:this={imageInput} />
   <div
     class="items-start gap-4 md:grid"
     style="grid-template-columns: .3fr .7fr"
   >
     <div>
-      <EditableImage link={image} product {imageInput} />
+      {#if menuItem?.image}
+        <img
+          class="mb-1 h-full w-full rounded-lg"
+          src={menuItem?.image}
+          width={250}
+          height={250}
+          alt={"avatar"}
+        />
+      {/if}
+      {#if !menuItem?.image}
+        <div class="mb-1 rounded-lg bg-gray-200 p-4 text-center text-gray-500">
+          No image
+        </div>
+      {/if}
+      <label>
+        <input name="image" type="file" class="hidden"
+        />
+        <span
+          class="block cursor-pointer rounded-lg border border-gray-300 p-2 text-center">Change image</span>
+      </label>
     </div>
     <div class="grow">
       <label for="name">Item name</label>

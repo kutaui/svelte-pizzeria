@@ -3,6 +3,8 @@ import { db } from "$lib/db/db.server";
 import { eq, sql } from "drizzle-orm";
 import { users } from "$lib/db/schema";
 import { type Actions, fail } from "@sveltejs/kit";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { AWS_ACCESS_KEY, AWS_SECRET_KEY } from "$env/static/private";
 
 export const load: PageServerLoad = async ({ locals }) => {
   const { user: existingUser } = locals;
@@ -46,17 +48,57 @@ export const actions = {
   },
   image: async ({ request }) => {
     const data = await request.formData();
-    const image = data.get("image") as File;
+    const image = data.get("image") as Blob;
     const userId = data.get("userId") as string;
-
-    const result = await db.execute(sql`
-        UPDATE "users"
-        SET image = ${image}
-        WHERE "users".id = ${userId}
-    `);
-
-    if (result) {
-      return { success: true };
+    console.log(image, "profile");
+    // check for f ile exten
+    if (!userId) {
+      return fail(400, { error: "User not found." });
     }
+
+    if (image.size > 1024 * 1024) {
+      return fail(400, { error: "Image size should be less than 1MB." });
+    }
+
+    const s3Client = new S3Client({
+      region: "eu-central-1",
+      credentials: {
+        accessKeyId: AWS_ACCESS_KEY,
+        secretAccessKey: AWS_SECRET_KEY,
+      },
+    });
+
+    const chunks = [];
+
+    for await (const chunk of image.stream()) {
+      chunks.push(chunk);
+    }
+
+    const buffer = Buffer.concat(chunks);
+
+    const uploadedFile = await s3Client.send(new PutObjectCommand({
+      Bucket: "svelte-pizzeria-bucket",
+      Key: `profile/${userId}`,
+      ACL: "public-read",
+      ContentType: image.type,
+      Body: buffer,
+    }));
+
+    if (uploadedFile["$metadata"].httpStatusCode === 200) {
+      const imageUrl = `https://svelte-pizzeria-bucket.s3.eu-central-1.amazonaws.com/profile/${userId}?t=${Date.now()}`;
+      const result = await db.execute(sql`
+          UPDATE "users"
+          SET image = ${imageUrl}
+          WHERE "users".id = ${userId}
+      `);
+
+      if (result) {
+        return { success: true, link: imageUrl };
+      }
+    } else {
+      return fail(400, { error: "Failed to upload image." });
+    }
+
+
   },
 } satisfies Actions;
