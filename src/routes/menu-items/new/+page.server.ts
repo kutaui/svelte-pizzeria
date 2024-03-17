@@ -60,8 +60,8 @@ export const actions = {
       Body: buffer,
     }));
 
-    if (uploadedFile["$metadata"].httpStatusCode === 200) {
-      const imageUrl = `https://svelte-pizzeria-bucket.s3.eu-central-1.amazonaws.com/product/${name}`;
+    if (image && uploadedFile["$metadata"].httpStatusCode === 200) {
+      const imageUrl = `https://svelte-pizzeria-bucket.s3.eu-central-1.amazonaws.com/product/${name}?t=${Date.now()}`;
       const menuItem = await db.execute(sql`
       INSERT INTO menu_items (name, description, category_id, base_price, sizes, extra_ingredient_prices, image)
       VALUES (${name}, ${description}, ${categoryID}, ${basePriceNumber}, ${sizesJSON}, ${extraIngredientPricesJSON}, ${imageUrl})

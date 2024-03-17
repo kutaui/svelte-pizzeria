@@ -4,15 +4,17 @@
   import DeleteButton from "$lib/components/DeleteButton.svelte";
   import type { MenuItem } from "$lib/types/MenuItem";
   import type { Category } from "$lib/types/Category";
+  import type { ActionData } from "../../../../../.svelte-kit/types/src/routes/$types";
 
   interface Props {
     data: {
       menuItem: MenuItem;
       categories: Category[];
     };
+    form: ActionData;
   }
 
-  let { data } = $props<Props>();
+  let { data, form } = $props<Props>();
   const { menuItem, categories } = data;
 </script>
 
@@ -24,7 +26,7 @@
       <span>Show all menu items</span>
     </a>
   </div>
-  <MenuItemForm {menuItem} {categories} editItem />
+  <MenuItemForm {form} {menuItem} {categories} editItem />
   <div class="mx-auto mt-2 max-w-md">
     <div class="ml-auto max-w-xs pl-4">
       <DeleteButton label="Delete this menu item" deleteID={menuItem.id} />

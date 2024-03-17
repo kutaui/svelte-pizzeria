@@ -3,6 +3,8 @@ import { db } from "$lib/db/db.server";
 import { sql } from "drizzle-orm";
 import { type Actions, redirect } from "@sveltejs/kit";
 import { parseMenuItemPrices } from "$lib/helpers";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { AWS_ACCESS_KEY, AWS_SECRET_KEY } from "$env/static/private";
 
 export const load: PageServerLoad = async ({ params }) => {
   const id = params.id;
@@ -63,21 +65,61 @@ export const actions = {
       return { message: "Menu item not found", success: false };
     }
 
-    const result = await db.execute(
-      sql`UPDATE menu_items
-          SET name                    = ${name},
-              description             = ${description},
-              category_id             = ${categoryID},
-              base_price              = ${basePriceNumber},
-              sizes                   = ${sizesJSON},
-              extra_ingredient_prices = ${extraIngredientPricesJSON},
-              image                   = ${image}
-          WHERE id = ${id}`,
-    );
+    const s3Client = new S3Client({
+      region: "eu-central-1",
+      credentials: {
+        accessKeyId: AWS_ACCESS_KEY,
+        secretAccessKey: AWS_SECRET_KEY,
+      },
+    });
 
-    if (result) {
-      return { message: "Menu item updated", success: true };
+
+    const chunks = [];
+
+    for await (const chunk of image.stream()) {
+      chunks.push(chunk);
     }
+
+    const buffer = Buffer.concat(chunks);
+
+    const uploadedFile = await s3Client.send(new PutObjectCommand({
+      Bucket: "svelte-pizzeria-bucket",
+      Key: `product/${name}`,
+      ACL: "public-read",
+      ContentType: image.type,
+      Body: buffer,
+    }));
+    if (image && uploadedFile["$metadata"].httpStatusCode === 200) {
+      const imageUrl = `https://svelte-pizzeria-bucket.s3.eu-central-1.amazonaws.com/product/${name}?t=${Date.now()}`;
+      const result = await db.execute(
+        sql`UPDATE menu_items
+            SET name                    = ${name},
+                description             = ${description},
+                category_id             = ${categoryID},
+                base_price              = ${basePriceNumber},
+                sizes                   = ${sizesJSON},
+                extra_ingredient_prices = ${extraIngredientPricesJSON},
+                image                   = ${imageUrl}
+            WHERE id = ${id}`,
+      );
+      return redirect(300, `/menu-items`);
+
+    } else {
+      const result = await db.execute(
+        sql`UPDATE menu_items
+            SET name                    = ${name},
+                description             = ${description},
+                category_id             = ${categoryID},
+                base_price              = ${basePriceNumber},
+                sizes                   = ${sizesJSON},
+                extra_ingredient_prices = ${extraIngredientPricesJSON},
+                WHERE id = ${id}`,
+      );
+      return redirect(300, `/menu-items`);
+
+    }
+
+
   },
   delete: async ({ params }) => {
     const id = params.id;
@@ -95,6 +137,6 @@ export const actions = {
           WHERE id = ${id}`,
     );
 
-    return redirect(300, "/menu-items");
+    return redirect(301, "/menu-items");
   },
 } satisfies Actions;

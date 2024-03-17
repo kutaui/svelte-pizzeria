@@ -61,7 +61,6 @@
     };
   }}
   enctype="multipart/form-data"
-  bind:this={form}
 >
   <div
     class="items-start gap-4 md:grid"
