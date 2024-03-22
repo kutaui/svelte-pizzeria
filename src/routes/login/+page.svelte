@@ -10,6 +10,7 @@
     data,
   }: { form: ActionData; data: { user: UserWithoutPassword | undefined } } =
     $props();
+  console.log(form);
 </script>
 
 <section class="mt-8">
@@ -28,8 +29,8 @@
       bind:value={password}
     />
     {#if form?.error}<p class="text-red-600">
-        {form.error}
-      </p>{/if}
+      {form.error}
+    </p>{/if}
     <button type="submit">Login</button>
     <div class="my-4 border-t pt-4 text-center text-gray-500">
       Don't have an account?

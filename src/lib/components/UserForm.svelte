@@ -38,11 +38,6 @@
 
 </script>
 
-{#if $page.form?.success}
-  <div class="mt-4 text-center text-green-500">
-    <p>work</p>
-  </div>
-{/if}
 <div class="gap-4 md:flex">
   <div>
     <div class="relative max-w-[120px] rounded-lg p-2">

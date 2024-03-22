@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { CartItem } from "$lib/types/MenuItem";
   import { cartProductPrice } from "$lib/helpers";
+  import toast from "svelte-french-toast";
 
   interface Props {
     product: CartItem;
@@ -11,6 +12,7 @@
   const handleRemoveItem = () => {
     if (removeItem) {
       removeItem(product);
+      toast.success("Item removed from cart");
     }
   };
 </script>

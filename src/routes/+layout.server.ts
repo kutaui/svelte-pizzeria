@@ -4,3 +4,5 @@ export const load: LayoutServerLoad = async ({ locals }) => {
   const { user } = locals;
   return { user };
 };
+
+

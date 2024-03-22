@@ -4,6 +4,7 @@
   import type { UserWithoutPassword } from "$lib/types/User";
   import { page } from "$app/stores";
   import type { ActionData } from "./$types";
+  import toast from "svelte-french-toast";
 
   interface Props {
     data: {
@@ -18,7 +19,8 @@
   let profile = user;
 
   $effect(() => {
-    console.log(form, "asd");
+    if (form?.error) toast.error(form?.error);
+    if (form?.success) toast.success("Profile updated successfully");
   });
 </script>
 

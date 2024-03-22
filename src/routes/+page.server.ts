@@ -2,10 +2,11 @@ import { db } from "$lib/db/db.server";
 import { sql } from "drizzle-orm";
 import type { PageServerLoad } from "./$types";
 import { parseMenuItemPrices } from "$lib/helpers";
+import { redirect } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async () => {
   const menuItems = await db.execute(
-    sql`SELECT id, name, description, sizes, extra_ingredient_prices, category_id, base_price
+    sql`SELECT id, name, description, sizes, extra_ingredient_prices, category_id, base_price,image
         FROM menu_items
         ORDER BY created_at ASC`,
   );
@@ -31,4 +32,11 @@ export const load: PageServerLoad = async () => {
           ORDER BY created_at ASC`,
     ),
   };
+};
+
+export const actions = {
+  logout: async ({ cookies }) => {
+    cookies.delete("authToken", { path: "/" });
+    return { success: true };
+  },
 };

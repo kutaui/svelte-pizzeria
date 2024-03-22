@@ -2,6 +2,7 @@
   import MenuItemTile from "$lib/components/MenuItemTile.svelte";
   import type { MenuItem, MenuItemPrices } from "$lib/types/MenuItem";
   import { cartStore } from "$lib/stores/CartStore.svelte";
+  import toast from "svelte-french-toast";
 
   interface Props {
     menuItem: MenuItem;
@@ -36,6 +37,7 @@
     addItem(menuItem, selectedSize, selectedExtras);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     showPopup = false;
+    toast.success("Item added to cart");
   }
 
   $effect(() => {

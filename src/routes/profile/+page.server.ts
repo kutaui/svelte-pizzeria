@@ -51,7 +51,13 @@ export const actions = {
     const image = data.get("image") as Blob;
     const userId = data.get("userId") as string;
     console.log(image, "profile");
-    // check for f ile exten
+
+    // check for file extension, it should be jpg, jpeg or png or gif
+    const allowedExtensions = ["image/jpg", "image/jpeg", "image/png", "image/gif"];
+    if (!allowedExtensions.includes(image.type)) {
+      return fail(400, { error: "Invalid image type." });
+    }
+
     if (!userId) {
       return fail(400, { error: "User not found." });
     }
@@ -69,7 +75,7 @@ export const actions = {
     });
 
     const chunks = [];
-
+// @ts-expect-error typescript go brr
     for await (const chunk of image.stream()) {
       chunks.push(chunk);
     }

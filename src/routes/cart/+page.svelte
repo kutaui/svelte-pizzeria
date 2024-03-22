@@ -6,6 +6,7 @@
   import AddressInputs from "$lib/components/AddressInputs.svelte";
   import type { CartItem } from "$lib/types/MenuItem";
   import { tick } from "svelte";
+  import toast from "svelte-french-toast";
 
   let { cartItems, removeItem } = cartStore;
 
@@ -62,7 +63,10 @@
       <AddressInputs
         addressProps={{ phone, streetAddress, postalCode, city, country }}
       />
-      <button type="submit">Pay ${subtotal + 5}</button>
+      <button type="button" class="submit" on:click={() =>
+      toast('On its way', {
+        icon: '😴',})}
+      >Pay ${subtotal + 5}</button>
     </div>
   </div>
 </section>

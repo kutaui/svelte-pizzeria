@@ -1,0 +1,1 @@
+<img src="/onepunchman.png" alt="" class="mt-6" loading="lazy">
