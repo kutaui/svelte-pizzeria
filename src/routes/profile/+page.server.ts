@@ -50,7 +50,6 @@ export const actions = {
     const data = await request.formData();
     const image = data.get("image") as Blob;
     const userId = data.get("userId") as string;
-    console.log(image, "profile");
 
     // check for file extension, it should be jpg, jpeg or png or gif
     const allowedExtensions = ["image/jpg", "image/jpeg", "image/png", "image/gif"];

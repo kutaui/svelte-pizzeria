@@ -27,8 +27,6 @@ export const actions = {
     const extraIngredientPricesJSON = data.get(
       "extraIngredientPrices",
     ) as string;
-    console.log(data);
-    console.log(image);
     const basePriceNumber = +basePrice;
 
     if (!name || !description || !categoryID || !basePrice) {

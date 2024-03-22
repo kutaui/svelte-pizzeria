@@ -14,14 +14,12 @@
   const handleFileSelect = (event: Event) => {
     const file = event.target.files[0];
 
-    console.log(file, "file");
     if (file) {
       const formData = new FormData();
       formData.append("image", file);
       form.requestSubmit();
     }
 
-    console.log(form, "asd");
   };
 
 

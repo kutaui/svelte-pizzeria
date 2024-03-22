@@ -23,9 +23,6 @@
 
   let { data, form } = $props<Props>();
   const categories = data?.categories;
-  $effect(() => {
-    console.log(form);
-  });
 </script>
 
 <section class="mx-auto mt-8 max-w-2xl">
