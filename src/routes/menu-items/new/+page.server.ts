@@ -3,7 +3,7 @@ import { db } from "$lib/db/db.server";
 import { sql } from "drizzle-orm";
 import { type Actions, redirect } from "@sveltejs/kit";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { AWS_ACCESS_KEY, AWS_SECRET_KEY } from "$env/static/private";
+import { MY_AWS_ACCESS_KEY, MY_AWS_SECRET_KEY } from "$env/static/private";
 
 export const load: PageServerLoad = async () => {
   return {
@@ -38,8 +38,8 @@ export const actions = {
     const s3Client = new S3Client({
       region: "eu-central-1",
       credentials: {
-        accessKeyId: AWS_ACCESS_KEY,
-        secretAccessKey: AWS_SECRET_KEY,
+        accessKeyId: MY_AWS_ACCESS_KEY,
+        secretAccessKey: MY_AWS_SECRET_KEY,
       },
     });
 
